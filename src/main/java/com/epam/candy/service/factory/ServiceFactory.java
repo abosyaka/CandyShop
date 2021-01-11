@@ -1,9 +1,6 @@
 package com.epam.candy.service.factory;
 
-import com.epam.candy.service.HomeService;
-import com.epam.candy.service.RegisterService;
-import com.epam.candy.service.Service;
-import com.epam.candy.service.ShowRegisterService;
+import com.epam.candy.service.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,6 +17,9 @@ public class ServiceFactory {
         SERVICE_MAP.put(UrlConstant.HOME, new HomeService());
         SERVICE_MAP.put(UrlConstant.REGISTER, new RegisterService());
         SERVICE_MAP.put(UrlConstant.SHOW_REGISTER, new ShowRegisterService());
+        SERVICE_MAP.put(UrlConstant.SHOW_LOGIN, new ShowLoginService());
+        SERVICE_MAP.put(UrlConstant.LOGIN, new LoginService());
+        SERVICE_MAP.put(UrlConstant.LOGOUT, new LogoutService());
     }
 
     public Service getService(String request){

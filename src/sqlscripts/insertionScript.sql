@@ -2,11 +2,11 @@ INSERT INTO Role (role_name) VALUES('ROLE_USER');
 INSERT INTO Role (role_name) VALUES('ROLE_ADMIN');
 
 INSERT INTO "user" (user_email, user_password, user_name, role_id)
-VALUES ('abosyaka@gmail.com', '123', 'Ablay', 2);
+VALUES ('abosyaka@gmail.com', '$2a$10$YFDdYenU1bljLgOv84LxmOkR9ZwI51tsQzR7ks31d4ooApiB9cpR6', 'Ablay', 2);
 INSERT INTO "user" (user_email, user_password, user_name, role_id)
-VALUES ('igor@gmail.com', '123', 'Igor', 1);
+VALUES ('igor@gmail.com', '$2a$10$YFDdYenU1bljLgOv84LxmOkR9ZwI51tsQzR7ks31d4ooApiB9cpR6', 'Igor', 1);
 INSERT INTO "user" (user_email, user_password, user_name, role_id)
-VALUES ('almat@gmail.com', '123', 'Almat', 1);
+VALUES ('almat@gmail.com', '$2a$10$YFDdYenU1bljLgOv84LxmOkR9ZwI51tsQzR7ks31d4ooApiB9cpR6', 'Almat', 1);
 
 INSERT INTO Category (category_name) VALUES ('cakes');
 INSERT INTO Category (category_name) VALUES ('macaroons');

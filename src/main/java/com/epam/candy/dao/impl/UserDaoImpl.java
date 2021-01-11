@@ -59,6 +59,8 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public boolean delete(Long id) {
+        if(id == null) return false;
+
         PreparedStatement preparedStatement = null;
         try {
             preparedStatement = connection.prepareStatement(SQL_DELETE_USER_BY_ID);
@@ -76,6 +78,8 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public boolean create(User user) {
+        if(user == null) return false;
+
         PreparedStatement preparedStatement = null;
         try {
             connection = connectionPool.getConnection();
@@ -100,6 +104,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User update(User user) {
+
         PreparedStatement preparedStatement = null;
         User updatedUser = null;
         try {

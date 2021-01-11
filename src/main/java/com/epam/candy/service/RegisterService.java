@@ -4,6 +4,7 @@ import com.epam.candy.dao.UserDao;
 import com.epam.candy.dao.impl.UserDaoImpl;
 import com.epam.candy.entity.User;
 import com.epam.candy.service.factory.UrlConstant;
+import org.mindrot.jbcrypt.BCrypt;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -19,16 +20,22 @@ public class RegisterService implements Service {
 
         String email = request.getParameter("email");
         String password = request.getParameter("password");
+        String rePassword = request.getParameter("repassword");
         String name = request.getParameter("name");
+        String hashedPassword;
 
-        User user = new User(email, password, name);
+        User user = null;
 
-        System.out.println("HEY");
+        if (password.equals(rePassword)) {
+            hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+            user = new User(email, hashedPassword, name);
+        } else {
+            logger.error("passwords do not match");
+        }
 
-        System.out.println(userDao.create(user));
 
-        System.out.println("LOL");
-
-        response.sendRedirect(UrlConstant.HOME);
+        if (userDao.create(user)) {
+            response.sendRedirect(UrlConstant.HOME);
+        }
     }
 }
