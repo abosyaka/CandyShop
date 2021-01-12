@@ -19,10 +19,10 @@ public class CookieLocaleFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
-        String langCode = request.getParameter("lang");
+        String locale = request.getParameter(ServiceConstant.LANGUAGE);
 
-        if (langCode != null) {
-            Cookie cookie = new Cookie(ServiceConstant.LANGUAGE, langCode);
+        if (locale != null) {
+            Cookie cookie = new Cookie(ServiceConstant.LANGUAGE, locale);
             cookie.setMaxAge(60*60*24*30);
             response.addCookie(cookie);
         }

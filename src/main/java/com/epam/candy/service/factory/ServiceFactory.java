@@ -27,6 +27,7 @@ public class ServiceFactory {
         SERVICE_MAP.put(UrlConstant.ADMIN_SHOW_ORDERS, new ShowOrdersService());
         SERVICE_MAP.put(UrlConstant.ADMIN_SHOW_ROLES, new ShowRolesService());
         SERVICE_MAP.put(UrlConstant.ADMIN_SHOW_STATUSES, new ShowStatusesService());
+        SERVICE_MAP.put(UrlConstant.ERROR_403, new AccessErrorService());
     }
 
     public Service getService(String request){

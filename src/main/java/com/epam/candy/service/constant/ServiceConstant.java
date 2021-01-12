@@ -9,4 +9,6 @@ public class ServiceConstant {
     public static final String STATUSES = "statuses";
     public static final String GOODS = "goods";
     public static final String ORDERS = "orders";
+    public static final String ROLE_ADMIN = "ROLE_ADMIN";
+    public static final String ROLE_USER = "ROLE_USER";
 }

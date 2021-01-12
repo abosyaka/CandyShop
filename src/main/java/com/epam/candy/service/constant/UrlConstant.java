@@ -16,4 +16,5 @@ public class UrlConstant {
     public static final String ADMIN_SHOW_ROLES = "/admin/roles";
     public static final String ADMIN_SHOW_STATUSES = "/admin/statuses";
     public static final String ADMIN_SHOW_ORDERS = "/admin/orders";
+    public static final String ERROR_403 = "/error403";
 }
