@@ -24,6 +24,7 @@ public class StatusDaoImpl implements StatusDao {
             "UPDATE status SET status_name=? WHERE status_id=?";
 
     protected StatusDaoImpl() {
+
     }
 
     @Override

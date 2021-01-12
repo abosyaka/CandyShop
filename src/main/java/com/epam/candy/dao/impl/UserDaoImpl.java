@@ -33,6 +33,7 @@ public class UserDaoImpl implements UserDao {
         List<User> users = new ArrayList<>();
         PreparedStatement preparedStatement = null;
         try {
+            connection = connectionPool.getConnection();
             preparedStatement = connection.prepareStatement(SQL_FIND_ALL_USERS);
 
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -63,6 +64,7 @@ public class UserDaoImpl implements UserDao {
 
         PreparedStatement preparedStatement = null;
         try {
+            connection = connectionPool.getConnection();
             preparedStatement = connection.prepareStatement(SQL_DELETE_USER_BY_ID);
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();

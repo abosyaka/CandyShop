@@ -1,5 +1,7 @@
 package com.epam.candy.filter;
 
+import com.epam.candy.service.constant.ServiceConstant;
+
 import javax.servlet.*;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +22,7 @@ public class CookieLocaleFilter implements Filter {
         String langCode = request.getParameter("lang");
 
         if (langCode != null) {
-            Cookie cookie = new Cookie("lang", langCode);
+            Cookie cookie = new Cookie(ServiceConstant.LANGUAGE, langCode);
             cookie.setMaxAge(60*60*24*30);
             response.addCookie(cookie);
         }

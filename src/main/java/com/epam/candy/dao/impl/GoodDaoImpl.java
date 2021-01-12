@@ -1,5 +1,6 @@
 package com.epam.candy.dao.impl;
 
+import com.epam.candy.connectionpool.BasicConnectionPool;
 import com.epam.candy.dao.CategoryDao;
 import com.epam.candy.dao.GoodDao;
 import com.epam.candy.dao.RoleDao;
@@ -33,8 +34,8 @@ public class GoodDaoImpl implements GoodDao {
         List<Good> goods = new ArrayList<>();
         PreparedStatement preparedStatement = null;
         try {
+            connection = connectionPool.getConnection();
             preparedStatement = connection.prepareStatement(SQL_FIND_ALL_GOODS);
-
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
@@ -65,6 +66,7 @@ public class GoodDaoImpl implements GoodDao {
     public boolean delete(Long id) {
         PreparedStatement preparedStatement = null;
         try {
+            connection = connectionPool.getConnection();
             preparedStatement = connection.prepareStatement(SQL_DELETE_GOOD_BY_ID);
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();

@@ -3,7 +3,7 @@ package com.epam.candy.service;
 import com.epam.candy.dao.UserDao;
 import com.epam.candy.dao.impl.UserDaoImpl;
 import com.epam.candy.entity.User;
-import com.epam.candy.service.factory.UrlConstant;
+import com.epam.candy.service.constant.UrlConstant;
 import org.mindrot.jbcrypt.BCrypt;
 
 import javax.servlet.ServletException;

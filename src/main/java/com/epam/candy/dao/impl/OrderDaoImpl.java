@@ -3,9 +3,7 @@ package com.epam.candy.dao.impl;
 import com.epam.candy.dao.OrderDao;
 import com.epam.candy.dao.StatusDao;
 import com.epam.candy.dao.UserDao;
-import com.epam.candy.entity.Category;
 import com.epam.candy.entity.Order;
-import com.epam.candy.entity.Status;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
