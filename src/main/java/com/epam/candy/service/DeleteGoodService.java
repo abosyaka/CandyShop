@@ -2,28 +2,25 @@ package com.epam.candy.service;
 
 import com.epam.candy.dao.GoodDao;
 import com.epam.candy.dao.impl.GoodDaoImpl;
-import com.epam.candy.entity.Good;
 import com.epam.candy.service.constant.ServiceConstant;
+import com.epam.candy.service.constant.UrlConstant;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
-import java.util.ArrayList;
 
-public class HomeService implements Service{
+public class DeleteGoodService implements Service {
     private final GoodDao goodDao = GoodDaoImpl.getInstance();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ParseException, SQLException {
-        ArrayList<Good> goods = (ArrayList<Good>) goodDao.findAll();
+        Long id = Long.parseLong(request.getParameter(ServiceConstant.ID));
 
-        request.setAttribute(ServiceConstant.GOODS, goods);
+        goodDao.delete(id);
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
-        dispatcher.forward(request,response);
+        response.sendRedirect(UrlConstant.ADMIN_SHOW_GOODS);
     }
 }

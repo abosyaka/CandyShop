@@ -1,7 +1,8 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page isELIgnored="false" %>
 <html>
 <head>
-<%@include file="layout/head.jsp"%>
+    <%@include file="layout/head.jsp"%>
     <title><fmt:message key="button.user.all" /></title>
 </head>
 <body>
@@ -52,9 +53,9 @@
                                 <td scope="col">${user.role.name}
                                 </td>
                                 <td scope="col" class="text-right">
-                                    <button class="btn btn-secondary btn-sm">
+                                    <a href="/admin/user?id=${user.id}" class="btn btn-secondary btn-sm">
                                         <i class="bi bi-pencil-square"></i>
-                                    </button>
+                                    </a>
                                     <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal"
                                             data-target="#deleteModal"><i class="bi bi-trash-fill"></i>
                                     </button>

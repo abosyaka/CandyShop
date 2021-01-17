@@ -2,7 +2,6 @@ package com.epam.candy.dao.impl;
 
 import com.epam.candy.dao.CategoryDao;
 import com.epam.candy.entity.Category;
-import com.epam.candy.entity.Role;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -23,7 +22,8 @@ public class CategoryDaoImpl implements CategoryDao {
     private static final String SQL_UPDATE_CATEGORY =
             "UPDATE category SET category_name=? WHERE category_id=?";
 
-    protected CategoryDaoImpl(){}
+    protected CategoryDaoImpl() {
+    }
 
     @Override
     public List<Category> findAll() {
@@ -108,14 +108,9 @@ public class CategoryDaoImpl implements CategoryDao {
             preparedStatement.setString(1, category.getName());
             preparedStatement.setLong(2, category.getId());
 
-            ResultSet resultSet = preparedStatement.executeQuery();
+            preparedStatement.executeUpdate();
 
-            while (resultSet.next()) {
-                updatedCategory = new Category(
-                        resultSet.getLong(COLUMN_ID),
-                        resultSet.getString(COLUMN_NAME)
-                );
-            }
+            updatedCategory = category;
         } catch (SQLException throwable) {
             logger.error(throwable.getMessage());
         } finally {
@@ -153,7 +148,7 @@ public class CategoryDaoImpl implements CategoryDao {
         return foundCategory;
     }
 
-    public static CategoryDaoImpl getInstance(){
+    public static CategoryDaoImpl getInstance() {
         return INSTANCE;
     }
 }

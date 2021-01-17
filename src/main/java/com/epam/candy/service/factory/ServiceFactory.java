@@ -28,6 +28,17 @@ public class ServiceFactory {
         SERVICE_MAP.put(UrlConstant.ADMIN_SHOW_ROLES, new ShowRolesService());
         SERVICE_MAP.put(UrlConstant.ADMIN_SHOW_STATUSES, new ShowStatusesService());
         SERVICE_MAP.put(UrlConstant.ERROR_403, new AccessErrorService());
+        SERVICE_MAP.put(UrlConstant.ADMIN_SHOW_ORDER_EDIT, new ShowOrderEditService());
+        SERVICE_MAP.put(UrlConstant.ADMIN_ORDER_EDIT, new EditOrderService());
+        SERVICE_MAP.put(UrlConstant.ADMIN_SHOW_CATEGORY_EDIT, new ShowCategoryEditService());
+        SERVICE_MAP.put(UrlConstant.ADMIN_CATEGORY_EDIT, new EditCategoryService());
+        SERVICE_MAP.put(UrlConstant.ADMIN_CATEGORY_DELETE, new DeleteCategoryService());
+        SERVICE_MAP.put(UrlConstant.ADMIN_SHOW_USER_EDIT, new ShowUserEditService());
+        SERVICE_MAP.put(UrlConstant.ADMIN_USER_EDIT, new EditUserService());
+        SERVICE_MAP.put(UrlConstant.ADMIN_SHOW_GOOD_EDIT, new ShowGoodEditService());
+        SERVICE_MAP.put(UrlConstant.ADMIN_GOOD_EDIT, new EditGoodService());
+        SERVICE_MAP.put(UrlConstant.ADMIN_GOOD_DELETE, new DeleteGoodService());
+        SERVICE_MAP.put(UrlConstant.ADMIN_USER_DELETE, new DeleteUserService());
     }
 
     public Service getService(String request){

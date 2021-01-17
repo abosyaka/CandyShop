@@ -17,4 +17,15 @@ public class UrlConstant {
     public static final String ADMIN_SHOW_STATUSES = "/admin/statuses";
     public static final String ADMIN_SHOW_ORDERS = "/admin/orders";
     public static final String ERROR_403 = "/error403";
+    public static final String ADMIN_SHOW_USER_EDIT = "/admin/user";
+    public static final String ADMIN_USER_EDIT = "/admin/user/edit";
+    public static final String ADMIN_SHOW_ORDER_EDIT = "/admin/order";
+    public static final String ADMIN_ORDER_EDIT = "/admin/order/edit";
+    public static final String ADMIN_SHOW_CATEGORY_EDIT = "/admin/category";
+    public static final String ADMIN_CATEGORY_EDIT = "/admin/category/edit";
+    public static final String ADMIN_CATEGORY_DELETE = "/admin/category/delete";
+    public static final String ADMIN_SHOW_GOOD_EDIT = "/admin/good";
+    public static final String ADMIN_GOOD_EDIT = "/admin/good/edit";
+    public static final String ADMIN_GOOD_DELETE ="/admin/good/delete";
+    public static final String ADMIN_USER_DELETE = "/admin/user/delete";
 }

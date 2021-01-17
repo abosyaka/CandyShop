@@ -3,6 +3,7 @@ package com.epam.candy.service;
 import com.epam.candy.dao.UserDao;
 import com.epam.candy.dao.impl.UserDaoImpl;
 import com.epam.candy.entity.User;
+import com.epam.candy.service.constant.ServiceConstant;
 import com.epam.candy.service.constant.UrlConstant;
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -14,14 +15,14 @@ import java.sql.SQLException;
 import java.text.ParseException;
 
 public class RegisterService implements Service {
+    private final UserDao userDao = UserDaoImpl.getInstance();
+
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ParseException, SQLException {
-        UserDao userDao = UserDaoImpl.getInstance();
-
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
-        String rePassword = request.getParameter("repassword");
-        String name = request.getParameter("name");
+        String email = request.getParameter(ServiceConstant.EMAIL);
+        String password = request.getParameter(ServiceConstant.PASSWORD);
+        String rePassword = request.getParameter(ServiceConstant.NEW_PASSWORD_CONFIRM);
+        String name = request.getParameter(ServiceConstant.NAME);
         String hashedPassword;
 
         User user = null;

@@ -1,6 +1,7 @@
 package com.epam.candy.filter;
 
 import com.epam.candy.service.constant.ServiceConstant;
+import com.epam.candy.service.constant.UrlConstant;
 
 import javax.servlet.*;
 import javax.servlet.http.Cookie;
@@ -19,11 +20,22 @@ public class CookieLocaleFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
+        Cookie cookie = null;
         String locale = request.getParameter(ServiceConstant.LANGUAGE);
+        Cookie[] cookies = request.getCookies();
 
         if (locale != null) {
-            Cookie cookie = new Cookie(ServiceConstant.LANGUAGE, locale);
-            cookie.setMaxAge(60*60*24*30);
+            for(Cookie element : cookies){
+                if(element.getValue().equals(ServiceConstant.LANGUAGE)){
+                    cookie = element;
+                    cookie.setValue(locale);
+                    break;
+                }
+            }
+            if(cookie == null) {
+                cookie = new Cookie(ServiceConstant.LANGUAGE, locale);
+                cookie.setMaxAge(60 * 60 * 24 * 30);
+            }
             response.addCookie(cookie);
         }
 

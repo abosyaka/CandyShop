@@ -17,13 +17,13 @@ import java.text.ParseException;
 import java.util.ArrayList;
 
 public class ShowGoodsService implements Service {
+    private final GoodDao goodDao = GoodDaoImpl.getInstance();
+
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ParseException, SQLException {
         User user = (User) request.getSession().getAttribute(ServiceConstant.USER);
         if (user != null) {
             if (user.getRole().getName().equals(ServiceConstant.ROLE_ADMIN)) {
-                GoodDao goodDao = GoodDaoImpl.getInstance();
-
                 ArrayList<Good> goods = (ArrayList<Good>) goodDao.findAll();
 
                 request.setAttribute(ServiceConstant.GOODS, goods);

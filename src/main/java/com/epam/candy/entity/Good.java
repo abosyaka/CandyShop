@@ -18,12 +18,12 @@ public class Good extends Entity{
                 Category category, String ingredients, Integer storagePeriod) {
         this.id = id;
         this.name = name;
-        this.description = description;
+        this.description = description.trim();
         this.pictureUrl = pictureUrl;
         this.weight = weight;
         this.price = price;
         this.category = category;
-        this.ingredients = ingredients;
+        this.ingredients = ingredients.trim();
         this.storagePeriod = storagePeriod;
     }
 

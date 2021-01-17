@@ -16,13 +16,13 @@ import java.text.ParseException;
 import java.util.ArrayList;
 
 public class ShowUsersService implements Service {
+    private final UserDao userDao = UserDaoImpl.getInstance();
+
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ParseException, SQLException {
         User user = (User) request.getSession().getAttribute(ServiceConstant.USER);
         if (user != null) {
             if (user.getRole().getName().equals(ServiceConstant.ROLE_ADMIN)) {
-                UserDao userDao = UserDaoImpl.getInstance();
-
                 ArrayList<User> users = (ArrayList<User>) userDao.findAll();
                 request.setAttribute(ServiceConstant.USERS, users);
 

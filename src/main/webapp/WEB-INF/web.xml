@@ -5,10 +5,6 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
     <display-name>Archetype Created Web Application</display-name>
-    <servlet-mapping>
-        <servlet-name>default</servlet-name>
-        <url-pattern>/resources/css/*</url-pattern>
-    </servlet-mapping>
 
     <servlet>
         <servlet-name>CandyShopController</servlet-name>
@@ -17,6 +13,33 @@
     <servlet-mapping>
         <servlet-name>CandyShopController</servlet-name>
         <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>/resources/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.png</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.jpg</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>ImageUploadController</servlet-name>
+        <servlet-class>com.epam.candy.controller.ImageUploadController</servlet-class>
+        <multipart-config>
+            <max-file-size>10485760</max-file-size>
+            <max-request-size>20971520</max-request-size>
+            <file-size-threshold>5242880</file-size-threshold>
+        </multipart-config>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ImageUploadController</servlet-name>
+        <url-pattern>/image/upload</url-pattern>
     </servlet-mapping>
 
     <filter>

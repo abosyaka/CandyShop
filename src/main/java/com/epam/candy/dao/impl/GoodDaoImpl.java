@@ -127,21 +127,9 @@ public class GoodDaoImpl implements GoodDao {
             preparedStatement.setInt(8, good.getStoragePeriod());
             preparedStatement.setLong(9, good.getId());
 
-            ResultSet resultSet = preparedStatement.executeQuery();
+            preparedStatement.executeUpdate();
 
-            while (resultSet.next()){
-                updatedGood = new Good(
-                        resultSet.getLong(COLUMN_ID),
-                        resultSet.getString(COLUMN_NAME),
-                        resultSet.getString(COLUMN_DESCRIPTION),
-                        resultSet.getString(COLUMN_PICTURE_URL),
-                        resultSet.getDouble(COLUMN_WEIGHT),
-                        resultSet.getInt(COLUMN_PRICE),
-                        categoryDao.findById(resultSet.getLong(COLUMN_CATEGORY_ID)),
-                        resultSet.getString(COLUMN_INGREDIENTS),
-                        resultSet.getInt(COLUMN_STORAGE_PERIOD)
-                );
-            }
+            updatedGood = good;
         } catch (SQLException throwable) {
             logger.error(throwable.getMessage());
         } finally {

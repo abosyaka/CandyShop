@@ -53,11 +53,11 @@
                                 <td scope="col">${good.weight}
                                 </td>
                                 <td scope="col" class="text-right">
-                                    <button class="btn btn-secondary btn-sm">
+                                    <a href="/admin/good?id=${good.id}" class="btn btn-secondary btn-sm">
                                         <i class="bi bi-pencil-square"></i>
-                                    </button>
+                                    </a>
                                     <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal"
-                                            data-target="#deleteModal"><i class="bi bi-trash-fill"></i>
+                                            data-target="#deleteGoodModal" data-id="${good.id}"><i class="bi bi-trash-fill"></i>
                                     </button>
                                 </td>
                             </tr>
@@ -72,6 +72,41 @@
     </div>
 </div>
 
-<%@include file="layout/footer.jsp"%>
+<!-- DELETE CATEGORY MODAL -->
+<div class="modal fade" id="deleteGoodModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h3 class="text-center font-weight-bold"><fmt:message key="label.delete.confirm" /></h3>
+            </div>
+            <div class="modal-footer">
+                <form action="/admin/good/delete" method="post">
+                    <input type="text" name="id" id="lol">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><fmt:message
+                            key="button.close"/></button>
+                    <button type="submit" class="btn btn-danger"><fmt:message key="button.delete"/></button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END OF MODAL -->
+
+<%@include file="layout/footer.jsp" %>
+<script>
+    $('#deleteGoodModal').on('show.bs.modal', function (event) {
+        const button = $(event.relatedTarget)
+        let id = button.data('id')
+        const modal = $(this)
+        modal.find('#lol').val(id)
+    });
+</script>
 </body>
 </html>

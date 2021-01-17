@@ -3,12 +3,10 @@
 <%@ page isELIgnored="false" %>
 
 
-<!DOCTYPE HTML>
-<html lang="${cookie['lang'].value}">
+<html >
 <head>
     <%@include file="layout/head.jsp"%>
     <title>LOLKA</title>
-<%--    <link rel="stylesheet" type="text/css" href=".././styles/style.css" />--%>
 </head>
 <body>
 <%@include file="layout/navbar.jsp"%>

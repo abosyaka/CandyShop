@@ -19,13 +19,6 @@
                 <div class="col-md-4">
                     <h5 class="display-5 font-weight-bold"><fmt:message key="button.order.all" /></h5>
                 </div>
-                <div class="col-md-2 ml-auto offset-3">
-                    <button class="btn btn-secondary offset-5" data-toggle="modal" data-target="#modalLanguage"
-                            data-command="add">
-                        <fmt:message key="button.add"/>
-                    </button>
-
-                </div>
             </div>
             <p class="lead"></p>
             <hr class="my-4">
@@ -46,7 +39,7 @@
                             <tr>
                                 <td scope="col">${order.id}
                                 </td>
-                                <td scope="col">${order.user.name}
+                                <td scope="col">${order.user.email}
                                 </td>
                                 <td scope="col">${order.orderDate}
                                 </td>
@@ -62,12 +55,9 @@
                                     </c:if>
                                 </td>
                                 <td scope="col" class="text-right">
-                                    <button class="btn btn-secondary btn-sm">
+                                    <a href="/admin/order?id=${order.id}" class="btn btn-secondary btn-sm">
                                         <i class="bi bi-pencil-square"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal"
-                                            data-target="#deleteModal"><i class="bi bi-trash-fill"></i>
-                                    </button>
+                                    </a>
                                 </td>
                             </tr>
                         </c:forEach>

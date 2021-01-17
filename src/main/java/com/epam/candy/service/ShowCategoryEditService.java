@@ -14,27 +14,25 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
-import java.util.ArrayList;
 
-public class ShowCategoriesService implements Service {
+public class ShowCategoryEditService implements Service {
     private final CategoryDao categoryDao = CategoryDaoImpl.getInstance();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ParseException, SQLException {
-        User user = (User) request.getSession().getAttribute(ServiceConstant.USER);
-        if (user != null) {
-            if (user.getRole().getName().equals(ServiceConstant.ROLE_ADMIN)) {
-                ArrayList<Category> categories = (ArrayList<Category>) categoryDao.findAll();
-
-                request.setAttribute(ServiceConstant.CATEGORIES, categories);
-
-                RequestDispatcher dispatcher = request.getRequestDispatcher("/admin_categories_list.jsp");
-                dispatcher.forward(request, response);
-            } else {
-                response.sendRedirect(UrlConstant.ERROR_403);
-            }
-        } else {
+        User currentUser = (User) request.getSession().getAttribute(SESSION_USER);
+        if (currentUser == null) {
             response.sendRedirect(UrlConstant.SHOW_LOGIN);
+        } else if (currentUser.getRole().getName().equals(ServiceConstant.ROLE_USER)) {
+            response.sendRedirect(UrlConstant.ERROR_403);
+        } else {
+            Long id = Long.parseLong(request.getParameter(ServiceConstant.ID));
+            Category category = categoryDao.findById(id);
+
+            request.setAttribute(ServiceConstant.CATEGORY, category);
+
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/edit_category.jsp");
+            dispatcher.forward(request, response);
         }
     }
 }

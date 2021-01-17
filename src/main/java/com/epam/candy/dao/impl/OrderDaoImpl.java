@@ -114,16 +114,9 @@ public class OrderDaoImpl implements OrderDao {
             preparedStatement.setLong(1, order.getStatus().getId());
             preparedStatement.setLong(2, order.getId());
 
-            ResultSet resultSet = preparedStatement.executeQuery();
+            preparedStatement.executeUpdate();
 
-            while (resultSet.next()) {
-                updatedOrder = new Order(
-                        resultSet.getLong(COLUMN_ID),
-                        userDao.findById(resultSet.getLong(COLUMN_USER_ID)),
-                        statusDao.findById(resultSet.getLong(COLUMN_STATUS_ID)),
-                        resultSet.getDate(COLUMN_ORDER_DATE).toLocalDate()
-                );
-            }
+            updatedOrder = order;
         } catch (SQLException throwable) {
             logger.error(throwable.getMessage());
         } finally {

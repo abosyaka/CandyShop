@@ -23,7 +23,7 @@ public class UserDaoImpl implements UserDao {
     private static final String SQL_SELECT_USER_BY_ID = "SELECT * FROM \"user\" WHERE user_id=?";
     private static final String SQL_SELECT_USER_BY_EMAIL = "SELECT * FROM \"user\" WHERE user_email=?";
     private static final String SQL_UPDATE_USER =
-            "UPDATE \"user\" SET user_email=?, user_password=?, user_name=?, role_id=? WHERE user_id=?";
+            "UPDATE \"user\" SET user_password=?, user_name=?, role_id=? WHERE user_id=?";
 
     protected UserDaoImpl() {
     }
@@ -109,28 +109,20 @@ public class UserDaoImpl implements UserDao {
 
         PreparedStatement preparedStatement = null;
         User updatedUser = null;
+
         try {
             connection = connectionPool.getConnection();
 
             preparedStatement = connection.prepareStatement(SQL_UPDATE_USER);
 
-            preparedStatement.setString(1, user.getEmail());
-            preparedStatement.setString(2, user.getPassword());
-            preparedStatement.setString(3, user.getName());
-            preparedStatement.setInt(4, user.getRole().getId().intValue());
+            preparedStatement.setString(1, user.getPassword());
+            preparedStatement.setString(2, user.getName());
+            preparedStatement.setInt(3, user.getRole().getId().intValue());
+            preparedStatement.setInt(4, user.getId().intValue());
 
-            ResultSet resultSet = preparedStatement.executeQuery();
+            preparedStatement.executeUpdate();
 
-            while (resultSet.next()) {
-                updatedUser = new User(
-                        resultSet.getLong(COLUMN_ID),
-                        resultSet.getString(COLUMN_EMAIL),
-                        resultSet.getString(COLUMN_PASSWORD),
-                        resultSet.getString(COLUMN_NAME),
-                        roleDao.findById(resultSet.getLong(COLUMN_ROLE_ID))
-                );
-
-            }
+            updatedUser = user;
         } catch (SQLException throwable) {
             logger.error(throwable.getMessage());
         } finally {

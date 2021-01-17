@@ -26,7 +26,7 @@
             </div>
             <div class="form-group">
                 <label for="repass"><fmt:message key="label.password.confirm" /></label>
-                <input type="password" class="form-control" name="repassword" id="repass">
+                <input type="password" class="form-control" name="reNewPass" id="repass">
             </div>
             <div class="form-group d-flex justify-content-center">
                 <button class="btn btn-success w-50 font-weight-bold"><fmt:message key="button.signup" /></button>
