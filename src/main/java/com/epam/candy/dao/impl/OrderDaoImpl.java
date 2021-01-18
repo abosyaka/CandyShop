@@ -4,11 +4,9 @@ import com.epam.candy.dao.OrderDao;
 import com.epam.candy.dao.StatusDao;
 import com.epam.candy.dao.UserDao;
 import com.epam.candy.entity.Order;
+import com.epam.candy.entity.User;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,13 +16,14 @@ public class OrderDaoImpl implements OrderDao {
     private final StatusDao statusDao = StatusDaoImpl.getInstance();
     private Connection connection = null;
 
-    private static final String SQL_FIND_ALL_ORDERS = "SELECT * FROM \"order\"";
+    private static final String SQL_FIND_ALL_ORDERS = "SELECT * FROM purchase_order";
     private static final String SQL_INSERT_ORDER =
-            "INSERT INTO \"order\" (user_id, status_id) VALUES(?,?)";
-    private static final String SQL_DELETE_ORDER_BY_ID = "DELETE FROM \"order\" WHERE order_id=?";
-    private static final String SQL_SELECT_ORDER_BY_ID = "SELECT * FROM \"order\" WHERE order_id=?";
+            "INSERT INTO purchase_order (user_id, status_id) VALUES(?,?)";
+    private static final String SQL_DELETE_ORDER_BY_ID = "DELETE FROM purchase_order WHERE order_id=?";
+    private static final String SQL_SELECT_ORDER_BY_ID = "SELECT * FROM purchase_order WHERE order_id=?";
     private static final String SQL_UPDATE_ORDER =
-            "UPDATE \"order\" SET status_id=? WHERE order_id=?";
+            "UPDATE purchase_order SET status_id=? WHERE order_id=?";
+    private static final String SQL_FIND_ALL_ORDERS_BY_USER = "SELECT * FROM purchase_order WHERE user_id=? ORDER BY order_date DESC";
 
     protected OrderDaoImpl(){}
 
@@ -86,12 +85,21 @@ public class OrderDaoImpl implements OrderDao {
         try {
             connection = connectionPool.getConnection();
 
-            preparedStatement = connection.prepareStatement(SQL_INSERT_ORDER);
+            preparedStatement = connection.prepareStatement(SQL_INSERT_ORDER,
+                    Statement.RETURN_GENERATED_KEYS);
 
             preparedStatement.setLong(1, order.getUser().getId());
             preparedStatement.setLong(2, order.getStatus().getId());
 
             preparedStatement.executeUpdate();
+
+            try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()){
+                if(generatedKeys.next()){
+                    order.setId(generatedKeys.getLong(1));
+                } else {
+                    throw new SQLException("Creating new user failed, no ID obtained");
+                }
+            }
         } catch (SQLException throwable) {
             logger.error(throwable.getMessage());
             return false;
@@ -154,6 +162,37 @@ public class OrderDaoImpl implements OrderDao {
             closeStatement(preparedStatement);
         }
         return foundOrder;
+    }
+
+    @Override
+    public List<Order> findAllByUser(User user) {
+        PreparedStatement preparedStatement = null;
+        List<Order> orders = new ArrayList<>();
+
+        try {
+            connection = connectionPool.getConnection();
+            preparedStatement = connection.prepareStatement(SQL_FIND_ALL_ORDERS_BY_USER);
+            preparedStatement.setLong(1,user.getId());
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                Order order = new Order(
+                        resultSet.getLong(COLUMN_ID),
+                        userDao.findById(resultSet.getLong(COLUMN_USER_ID)),
+                        statusDao.findById(resultSet.getLong(COLUMN_STATUS_ID)),
+                        resultSet.getDate(COLUMN_ORDER_DATE).toLocalDate()
+                );
+
+                orders.add(order);
+            }
+        } catch (SQLException throwable) {
+            logger.error(throwable.getMessage());
+        } finally {
+            releaseConnection(connection);
+            closeStatement(preparedStatement);
+        }
+        return orders;
     }
 
     public static OrderDaoImpl getInstance(){

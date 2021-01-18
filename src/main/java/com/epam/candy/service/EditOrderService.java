@@ -35,11 +35,11 @@ public class EditOrderService implements Service {
         Order order = orderDao.findById(id);
 
         boolean isDetailsUpdated = true;
-        for(int i = 0; i < details.size(); i++){
+        for (int i = 0; i < details.size(); i++) {
             String countParam = ServiceConstant.COUNT + i;
             Integer count = Integer.parseInt(request.getParameter(countParam));
             OrderDetail detail = details.get(i);
-            if(count <= 0){
+            if (count <= 0) {
                 orderDetailDao.delete(detail.getId());
             } else {
                 detail.setCount(count);

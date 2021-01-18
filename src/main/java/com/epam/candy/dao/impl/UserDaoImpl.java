@@ -16,14 +16,14 @@ public class UserDaoImpl implements UserDao {
     private final RoleDao roleDao = RoleDaoImpl.getInstance();
     private Connection connection;
 
-    private static final String SQL_FIND_ALL_USERS = "SELECT * FROM \"user\"";
+    private static final String SQL_FIND_ALL_USERS = "SELECT * FROM user_detail";
     private static final String SQL_INSERT_USER =
-            "INSERT INTO \"user\" (user_email, user_password, user_name, role_id) VALUES(?,?,?,?)";
-    private static final String SQL_DELETE_USER_BY_ID = "DELETE FROM \"user\" WHERE user_id=?";
-    private static final String SQL_SELECT_USER_BY_ID = "SELECT * FROM \"user\" WHERE user_id=?";
-    private static final String SQL_SELECT_USER_BY_EMAIL = "SELECT * FROM \"user\" WHERE user_email=?";
+            "INSERT INTO user_detail (user_email, user_password, user_name, role_id) VALUES(?,?,?,?)";
+    private static final String SQL_DELETE_USER_BY_ID = "DELETE FROM user_detail WHERE user_id=?";
+    private static final String SQL_SELECT_USER_BY_ID = "SELECT * FROM user_detail WHERE user_id=?";
+    private static final String SQL_SELECT_USER_BY_EMAIL = "SELECT * FROM user_detail WHERE user_email=?";
     private static final String SQL_UPDATE_USER =
-            "UPDATE \"user\" SET user_password=?, user_name=?, role_id=? WHERE user_id=?";
+            "UPDATE user_detail SET user_password=?, user_name=?, role_id=? WHERE user_id=?";
 
     protected UserDaoImpl() {
     }

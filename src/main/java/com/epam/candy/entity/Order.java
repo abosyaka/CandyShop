@@ -16,10 +16,18 @@ public class Order extends Entity{
         this.orderDate = orderDate;
     }
 
-    public Order(User user, Status status, LocalDate orderDate) {
+    public Order() {
+    }
+
+    public Order(Long id, User user, Status status) {
+        this.id = id;
         this.user = user;
         this.status = status;
-        this.orderDate = orderDate;
+    }
+
+    public Order(User user, Status status) {
+        this.user = user;
+        this.status = status;
     }
 
     public Long getId() {

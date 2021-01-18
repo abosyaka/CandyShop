@@ -22,6 +22,7 @@ public class StatusDaoImpl implements StatusDao {
     private static final String SQL_SELECT_STATUS_BY_ID = "SELECT * FROM status WHERE status_id=?";
     private static final String SQL_UPDATE_STATUS =
             "UPDATE status SET status_name=? WHERE status_id=?";
+    private static final String SQL_SELECT_STATUS_BY_NAME = "SELECT * FROM status WHERE status_name=?";
 
     protected StatusDaoImpl() {
 
@@ -110,14 +111,9 @@ public class StatusDaoImpl implements StatusDao {
             preparedStatement.setString(1, status.getName());
             preparedStatement.setLong(2, status.getId());
 
-            ResultSet resultSet = preparedStatement.executeQuery();
+            preparedStatement.executeUpdate();
 
-            while (resultSet.next()) {
-                updatedStatus = new Status(
-                        resultSet.getLong(COLUMN_ID),
-                        resultSet.getString(COLUMN_NAME)
-                );
-            }
+            updatedStatus = status;
         } catch (SQLException throwable) {
             logger.error(throwable.getMessage());
         } finally {
@@ -157,5 +153,33 @@ public class StatusDaoImpl implements StatusDao {
 
     public static StatusDaoImpl getInstance() {
         return INSTANCE;
+    }
+
+    @Override
+    public Status findByName(String name) {
+        PreparedStatement preparedStatement = null;
+        Status foundStatus = null;
+
+        try {
+            connection = connectionPool.getConnection();
+            preparedStatement = connection.prepareStatement(SQL_SELECT_STATUS_BY_NAME);
+
+            preparedStatement.setString(1, name);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                foundStatus = new Status(
+                        resultSet.getLong(COLUMN_ID),
+                        resultSet.getString(COLUMN_NAME)
+                );
+            }
+        } catch (SQLException throwable) {
+            logger.error(throwable.getMessage());
+        } finally {
+            releaseConnection(connection);
+            closeStatement(preparedStatement);
+        }
+        return foundStatus;
     }
 }

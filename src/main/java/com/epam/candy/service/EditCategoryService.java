@@ -25,7 +25,7 @@ public class EditCategoryService implements Service {
         category.setName(name);
 
         String editStatus = ServiceConstant.FAIL;
-        if(categoryDao.update(category) != null){
+        if (categoryDao.update(category) != null) {
             editStatus = ServiceConstant.SUCCESS;
         }
 

@@ -28,4 +28,11 @@ public class UrlConstant {
     public static final String ADMIN_GOOD_EDIT = "/admin/good/edit";
     public static final String ADMIN_GOOD_DELETE ="/admin/good/delete";
     public static final String ADMIN_USER_DELETE = "/admin/user/delete";
+    public static final String GOOD_DETAILS = "/good";
+    public static final String SHOW_CART = "/cart";
+    public static final String ADD_TO_CART = "/addToCart";
+    public static final String DELETE_FROM_CART = "/deleteFromCart";
+    public static final String MAKE_PURCHASE = "/purchase";
+    public static final String SHOW_USER_ORDERS = "/orders";
+    public static final String SHOW_ORDER_DETAILS = "/order";
 }

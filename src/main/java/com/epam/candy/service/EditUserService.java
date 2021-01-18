@@ -36,15 +36,15 @@ public class EditUserService implements Service {
         user.setName(name);
         user.setRole(role);
 
-        if(!newPass.isEmpty() && !reNewPass.isEmpty()){
-            if(newPass.equals(reNewPass)){
+        if (!newPass.isEmpty() && !reNewPass.isEmpty()) {
+            if (newPass.equals(reNewPass)) {
                 String hashedPassword = BCrypt.hashpw(newPass, BCrypt.gensalt());
                 user.setPassword(hashedPassword);
             }
         }
 
         String editStatus = ServiceConstant.FAIL;
-        if(userDao.update(user) != null){
+        if (userDao.update(user) != null) {
             editStatus = ServiceConstant.SUCCESS;
         }
 

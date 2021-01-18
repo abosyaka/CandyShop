@@ -34,4 +34,7 @@ public class ServiceConstant {
     public static final String WEIGHT = "weight";
     public static final String STORAGE_PERIOD = "storagePeriod";
     public static final String FILE = "file";
+    public static final String CART = "cart";
+    public static final String TOTAL_PRICE = "totalPrice";
+    public static final String STATUS_WAITING = "WAITING";
 }

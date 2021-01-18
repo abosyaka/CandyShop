@@ -108,14 +108,9 @@ public class RoleDaoImpl implements RoleDao {
             preparedStatement.setString(1, role.getName());
             preparedStatement.setLong(2, role.getId());
 
-            ResultSet resultSet = preparedStatement.executeQuery();
+            preparedStatement.executeUpdate();
 
-            while (resultSet.next()) {
-                updatedRole = new Role(
-                        resultSet.getLong(COLUMN_ID),
-                        resultSet.getString(COLUMN_NAME)
-                );
-            }
+            updatedRole = role;
         } catch (SQLException throwable) {
             logger.error(throwable.getMessage());
         } finally {

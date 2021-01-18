@@ -10,7 +10,7 @@ public class ServiceFactory {
     private static final ServiceFactory INSTANCE = new ServiceFactory();
     private static final Map<String, Service> SERVICE_MAP = new HashMap<>();
 
-    private ServiceFactory(){
+    private ServiceFactory() {
 
     }
 
@@ -39,13 +39,20 @@ public class ServiceFactory {
         SERVICE_MAP.put(UrlConstant.ADMIN_GOOD_EDIT, new EditGoodService());
         SERVICE_MAP.put(UrlConstant.ADMIN_GOOD_DELETE, new DeleteGoodService());
         SERVICE_MAP.put(UrlConstant.ADMIN_USER_DELETE, new DeleteUserService());
+        SERVICE_MAP.put(UrlConstant.GOOD_DETAILS, new ShowGoodDetailService());
+        SERVICE_MAP.put(UrlConstant.SHOW_CART, new ShowCartService());
+        SERVICE_MAP.put(UrlConstant.ADD_TO_CART, new AddToCartService());
+        SERVICE_MAP.put(UrlConstant.DELETE_FROM_CART, new DeleteFromCartService());
+        SERVICE_MAP.put(UrlConstant.MAKE_PURCHASE, new MakeOrderService());
+        SERVICE_MAP.put(UrlConstant.SHOW_USER_ORDERS, new ShowUserOrdersService());
+        SERVICE_MAP.put(UrlConstant.SHOW_ORDER_DETAILS, new ShowOrderDetailService());
     }
 
-    public Service getService(String request){
+    public Service getService(String request) {
         Service service = SERVICE_MAP.get(UrlConstant.ERROR);
 
-        for(Map.Entry<String, Service> pair: SERVICE_MAP.entrySet()){
-            if(request.equalsIgnoreCase(pair.getKey())){
+        for (Map.Entry<String, Service> pair : SERVICE_MAP.entrySet()) {
+            if (request.equalsIgnoreCase(pair.getKey())) {
                 service = SERVICE_MAP.get(pair.getKey());
             }
         }

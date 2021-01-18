@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <nav class="navbar navbar-dark">
-    <a class="navbar-brand font-weight-bold" href="${pageContext.request.contextPath}/">CandyShop
+    <a class="navbar-brand font-weight-bold" href="/">CandyShop
     </a>
     <ul class="row">
         <li class="nav-link">
@@ -11,18 +11,15 @@
             </a>
         </li>
         <li class="nav-item dropdown">
-<%--            <select name="" id="" class="form-control">--%>
-<%--                <option value="">Ru</option>--%>
-<%--                <option value="">Eng</option>--%>
-<%--            </select>--%>
-        <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <fmt:message key="button.language" /></button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <a class="dropdown-item" href="?lang=ru"><fmt:message key="label.language.ru" /></a>
-        <a class="dropdown-item" href="?lang=en"><fmt:message key="label.language.en" /></a>
-        </div>
-        </div>
+            <form action="${pageContext.request.contextPath}" method="post">
+                <select name="lang" id="" class="form-control" onchange="this.form.submit()">
+                    <option value="ru" <c:if test="${current.equals('ru')}">selected</c:if>>Ru</option>
+                    <option value="en" <c:if test="${current.equals('en')}">selected</c:if>>Eng</option>
+                </select>
+            </form>
+        </li>
+        <li class="nav-link">
+            <a href="/cart" class="font-weight-bold text-white"><i class="bi bi-cart4"></i></a>
         </li>
         <li class="nav-link">
             <c:if test="${sessionScope.user == null}">
@@ -39,14 +36,16 @@
             </c:if>
         </li>
         <li class="nav-link">
-            <c:if test="${sessionScope.user != null}">
-                <a href="#" class="font-weight-bold text-white">${sessionScope.user.name}</a>
-            </c:if>
-        </li>
-        <li class="nav-link">
             <c:if test="${sessionScope.user.role.name.equals('ROLE_ADMIN')}">
                 <a href="/admin/users" class="font-weight-bold text-white">
                     <fmt:message key="button.admin.panel"/>
+                </a>
+            </c:if>
+        </li>
+        <li class="nav-link">
+            <c:if test="${sessionScope.user != null}">
+                <a href="/orders" class="font-weight-bold text-white">
+                <fmt:message key="button.order.all"/>
                 </a>
             </c:if>
         </li>

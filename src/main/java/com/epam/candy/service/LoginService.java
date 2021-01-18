@@ -26,11 +26,15 @@ public class LoginService implements Service {
 
         User user = userDao.findByEmail(email);
 
+        String redirectTo = UrlConstant.SHOW_LOGIN + "?login=error";
+
         if (user != null) {
             if (BCrypt.checkpw(password, user.getPassword())) {
                 session.setAttribute(SESSION_USER, user);
-                response.sendRedirect(UrlConstant.HOME);
+                redirectTo = UrlConstant.HOME;
             }
         }
+
+        response.sendRedirect(redirectTo);
     }
 }

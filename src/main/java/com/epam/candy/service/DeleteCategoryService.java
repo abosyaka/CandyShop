@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
 
-public class DeleteCategoryService implements Service{
+public class DeleteCategoryService implements Service {
     private final CategoryDao categoryDao = CategoryDaoImpl.getInstance();
 
     @Override

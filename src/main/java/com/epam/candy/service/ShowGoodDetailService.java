@@ -1,10 +1,7 @@
 package com.epam.candy.service;
 
-import com.epam.candy.dao.CategoryDao;
 import com.epam.candy.dao.GoodDao;
-import com.epam.candy.dao.impl.CategoryDaoImpl;
 import com.epam.candy.dao.impl.GoodDaoImpl;
-import com.epam.candy.entity.Category;
 import com.epam.candy.entity.Good;
 import com.epam.candy.service.constant.ServiceConstant;
 
@@ -15,21 +12,19 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
-import java.util.ArrayList;
 
-public class HomeService implements Service {
-    private final CategoryDao categoryDao = CategoryDaoImpl.getInstance();
+public class ShowGoodDetailService implements Service {
     private final GoodDao goodDao = GoodDaoImpl.getInstance();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ParseException, SQLException {
-        ArrayList<Category> categories = (ArrayList<Category>) categoryDao.findAll();
-        ArrayList<Good> goods = (ArrayList<Good>) goodDao.findAll();
+        Long id = Long.parseLong(request.getParameter(ServiceConstant.ID));
 
-        request.setAttribute(ServiceConstant.CATEGORIES, categories);
-        request.setAttribute(ServiceConstant.GOODS, goods);
+        Good good = goodDao.findById(id);
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
+        request.setAttribute(ServiceConstant.GOOD, good);
+
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/good_details.jsp");
         dispatcher.forward(request, response);
     }
 }

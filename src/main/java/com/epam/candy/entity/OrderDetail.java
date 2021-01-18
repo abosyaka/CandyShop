@@ -8,6 +8,9 @@ public class OrderDetail extends Entity{
     private Good good;
     private Integer count;
 
+    public OrderDetail() {
+    }
+
     public OrderDetail(Long id, Order order, Good good, Integer count) {
         this.id = id;
         this.order = order;

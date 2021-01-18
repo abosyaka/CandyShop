@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS Role(
   role_name VARCHAR(55) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS "user"(
+CREATE TABLE IF NOT EXISTS user_detail(
   user_id       SERIAL PRIMARY KEY,
   user_email    VARCHAR(127) UNIQUE NOT NULL,
   user_password VARCHAR(255) NOT NULL,
@@ -47,13 +47,13 @@ CREATE TABLE IF NOT EXISTS Status(
   status_name VARCHAR(55) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS "order"
+CREATE TABLE IF NOT EXISTS purchase_order
 (
   order_id    SERIAL PRIMARY KEY,
   user_id     INT NOT NULL,
   status_id   INT NOT NULL,
   order_date  TIMESTAMP DEFAULT NOW(),
-  FOREIGN KEY (user_id) REFERENCES "user" (user_id) ON DELETE CASCADE,
+  FOREIGN KEY (user_id) REFERENCES user_detail (user_id) ON DELETE CASCADE,
   FOREIGN KEY(status_id) REFERENCES Status(status_id) ON DELETE CASCADE
 );
 
@@ -62,6 +62,6 @@ CREATE TABLE IF NOT EXISTS Order_Detail(
   order_id INT NOT NULL,
   good_id INT NOT NULL,
   count INT NOT NULL,
-  FOREIGN KEY (order_id) REFERENCES "order"(order_id) ON DELETE CASCADE,
+  FOREIGN KEY (order_id) REFERENCES purchase_order(order_id) ON DELETE CASCADE,
   FOREIGN KEY (good_id) REFERENCES Good(good_id) ON DELETE CASCADE
 );

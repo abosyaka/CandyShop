@@ -1,11 +1,11 @@
 INSERT INTO Role (role_name) VALUES('ROLE_USER');
 INSERT INTO Role (role_name) VALUES('ROLE_ADMIN');
 
-INSERT INTO "user" (user_email, user_password, user_name, role_id)
+INSERT INTO user_detail (user_email, user_password, user_name, role_id)
 VALUES ('abosyaka@gmail.com', '$2a$10$YFDdYenU1bljLgOv84LxmOkR9ZwI51tsQzR7ks31d4ooApiB9cpR6', 'Ablay', 2);
-INSERT INTO "user" (user_email, user_password, user_name, role_id)
+INSERT INTO user_detail (user_email, user_password, user_name, role_id)
 VALUES ('igor@gmail.com', '$2a$10$YFDdYenU1bljLgOv84LxmOkR9ZwI51tsQzR7ks31d4ooApiB9cpR6', 'Igor', 1);
-INSERT INTO "user" (user_email, user_password, user_name, role_id)
+INSERT INTO user_detail (user_email, user_password, user_name, role_id)
 VALUES ('almat@gmail.com', '$2a$10$YFDdYenU1bljLgOv84LxmOkR9ZwI51tsQzR7ks31d4ooApiB9cpR6', 'Almat', 1);
 
 INSERT INTO Category (category_name) VALUES ('cakes');
@@ -76,9 +76,9 @@ INSERT INTO Status (status_name) VALUES ('IN PROCESS');
 INSERT INTO Status (status_name) VALUES ('COMPLETED');
 INSERT INTO Status (status_name) VALUES ('WAITING');
 
-INSERT INTO "order" (user_id, status_id) VALUES (2, 1);
-INSERT INTO "order" (user_id, status_id) VALUES (2, 2);
-INSERT INTO "order" (user_id, status_id) VALUES (3, 3);
+INSERT INTO purchase_order (user_id, status_id) VALUES (2, 1);
+INSERT INTO purchase_order (user_id, status_id) VALUES (2, 2);
+INSERT INTO purchase_order (user_id, status_id) VALUES (3, 3);
 
 INSERT INTO Order_Detail (order_id, good_id, count) VALUES (1, 1, 2);
 INSERT INTO Order_Detail (order_id, good_id, count) VALUES (2, 2, 3);
