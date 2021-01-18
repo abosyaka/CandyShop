@@ -21,7 +21,7 @@
             <c:forEach var="detail" items="${orderDetails}">
                 <div class="row mb-3 border-bottom pb-3">
                     <div class="col-12 col-sm-12 col-md-2 text-center">
-                        <img style="object-fit: contain" class="img-responsive" src="${detail.good.pictureUrl}"
+                        <img style="object-fit: contain" class="img-responsive" src="/image/upload/${detail.good.pictureUrl}"
                              alt="prewiew" width="120" height="80">
                     </div>
                     <div class="col-12 text-sm-center col-sm-12 text-md-left col-md-6">

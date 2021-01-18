@@ -58,7 +58,7 @@
             <input class="form-control" type="number" min="1" name="storagePeriod" value="${good.storagePeriod}" id="storagePeriod">
         </div>
         <div class="form-group d-flex justify-content-center" style="height: 200px">
-            <img src="${good.pictureUrl}" alt="" class="img-fluid img-thumbnail h-100" style="object-fit: contain">
+            <img src="/image/upload/${good.pictureUrl}" alt="" class="img-fluid img-thumbnail h-100" style="object-fit: contain">
         </div>
         <div class="form-group d-flex justify-content-center">
             <button class="btn btn-success font-weight-bold w-50"><fmt:message key="button.save" /></button>
@@ -66,6 +66,7 @@
     </form>
 
     <form action="/image/upload" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="id" value="${good.id}">
         <div class="input-group mb-3">
             <div class="input-group-prepend">
                 <button class="btn btn-outline-secondary" type="submit" id="inputGroupFileAddon03"><fmt:message key="button.upload" /></button>

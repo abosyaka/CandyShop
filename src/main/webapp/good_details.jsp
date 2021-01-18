@@ -10,7 +10,7 @@
     <div class="container">
         <div class="row mt-5">
             <div class="col-7 item-photo d-flex flex-column">
-                <img style="max-width:100%;max-height: 350px;object-fit: cover;" class="img-fluid img-thumbnail" src="${good.pictureUrl}"/>
+                <img style="max-width:100%;max-height: 350px;object-fit: cover;" class="img-fluid img-thumbnail" src="/image/upload/${good.pictureUrl}"/>
             </div>
             <div class="col-5" style="border:0px solid gray">
                 <h3>${good.name}</h3>

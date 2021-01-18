@@ -39,7 +39,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>ImageUploadController</servlet-name>
-        <url-pattern>/image/upload</url-pattern>
+        <url-pattern>/image/upload/*</url-pattern>
     </servlet-mapping>
 
     <filter>
@@ -67,5 +67,10 @@
     <session-config>
         <session-timeout>60</session-timeout>
     </session-config>
+
+    <context-param>
+        <param-name>upload.location</param-name>
+        <param-value>C:/Users/minot/Desktop/Univer/EpamJava/images/</param-value>
+    </context-param>
 </web-app>
 

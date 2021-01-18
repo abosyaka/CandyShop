@@ -35,7 +35,7 @@
                     <c:forEach var="good" items="${goods}">
                         <div class="col mb-4">
                             <div class="card">
-                                <img src="${good.pictureUrl}" class="card-img-top w-100 good-card-img" alt="image">
+                                <img src="/image/upload/${good.pictureUrl}" class="card-img-top w-100 good-card-img" alt="image">
                                 <div class="card-body">
                                     <a style="color: inherit" href="/good?id=${good.id}"><h5
                                             class="card-title">${good.name}</h5></a>
