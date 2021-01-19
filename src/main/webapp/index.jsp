@@ -11,11 +11,11 @@
         <div class="row mt-5">
             <div class="d-flex flex-column col col-md-3">
                 <div class="list-group">
-                    <a href="#" class="list-group-item list-group-item-action active" style="background-color: crimson;">
+                    <a href="/" class="list-group-item list-group-item-action active" style="background-color: crimson;">
                         <span><fmt:message key="button.category.all" /></span>
                     </a>
                     <c:forEach var="category" items="${categories}">
-                        <a href="#" class="list-group-item list-group-item-action">
+                        <a href="/?category=${category.id}" class="list-group-item list-group-item-action">
                             <span class="ml-2">${category.name}</span>
                         </a>
                     </c:forEach>
@@ -24,10 +24,10 @@
 
 
             <div class="col col-md-9">
-                <form action="" method="get" class="form-inline col-12 p-0">
+                <form action="/" method="get" class="form-inline col-12 p-0">
                     <div class="form-group w-100">
-                        <input class="form-control col-9" type="text" name="name">
-                        <button class="btn btn-success col-2 ml-auto" type="submit"><fmt:message key="button.search" /></button>
+                        <input class="form-control col-9" type="text" name="search">
+                        <button class="btn btn-info col-2 ml-auto" type="submit"><fmt:message key="button.search" /></button>
                     </div>
                 </form>
 

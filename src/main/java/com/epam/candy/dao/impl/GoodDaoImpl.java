@@ -4,6 +4,7 @@ import com.epam.candy.connectionpool.BasicConnectionPool;
 import com.epam.candy.dao.CategoryDao;
 import com.epam.candy.dao.GoodDao;
 import com.epam.candy.dao.RoleDao;
+import com.epam.candy.entity.Category;
 import com.epam.candy.entity.Good;
 import com.epam.candy.entity.User;
 
@@ -21,13 +22,19 @@ public class GoodDaoImpl implements GoodDao {
 
     private static final String SQL_FIND_ALL_GOODS = "SELECT * FROM good";
     private static final String SQL_INSERT_GOOD =
-            "INSERT INTO good (good_name, good_description, picture_url, good_weight, price, category_id, ingredients, storage_period) VALUES(?,?,?,?,?,?,?,?)";
+            "INSERT INTO good (good_name, good_description, picture_url, good_weight, price, category_id, ingredients, storage_period) " +
+                    "VALUES(?,?,?,?,?,?,?,?)";
     private static final String SQL_DELETE_GOOD_BY_ID = "DELETE FROM good WHERE good_id=?";
     private static final String SQL_SELECT_GOOD_BY_ID = "SELECT * FROM good WHERE good_id=?";
     private static final String SQL_UPDATE_GOOD =
-            "UPDATE good SET good_name=?, good_description=?, picture_url=?, good_weight=?, price=?, category_id=?, ingredients=?, storage_period=? WHERE good_id=?";
+            "UPDATE good SET " +
+                    "good_name=?, good_description=?, picture_url=?, good_weight=?, price=?, category_id=?, ingredients=?, storage_period=? " +
+                    "WHERE good_id=?";
+    private static final String SQL_FIND_ALL_BY_CATEGORY = "SELECT * FROM good WHERE category_id=?";
+    private static final String SQL_FIND_ALL_LIKE = "SELECT * FROM good WHERE good_name ILIKE ?";
 
-    protected GoodDaoImpl(){}
+    protected GoodDaoImpl() {
+    }
 
     @Override
     public List<Good> findAll() {
@@ -173,7 +180,75 @@ public class GoodDaoImpl implements GoodDao {
         return foundGood;
     }
 
-    public static GoodDaoImpl getInstance(){
+    @Override
+    public List<Good> findAllByCategory(Category category) {
+        List<Good> goods = new ArrayList<>();
+        PreparedStatement preparedStatement = null;
+        try {
+            connection = connectionPool.getConnection();
+            preparedStatement = connection.prepareStatement(SQL_FIND_ALL_BY_CATEGORY);
+            preparedStatement.setLong(1, category.getId());
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                Good good = new Good(
+                        resultSet.getLong(COLUMN_ID),
+                        resultSet.getString(COLUMN_NAME),
+                        resultSet.getString(COLUMN_DESCRIPTION),
+                        resultSet.getString(COLUMN_PICTURE_URL),
+                        resultSet.getDouble(COLUMN_WEIGHT),
+                        resultSet.getInt(COLUMN_PRICE),
+                        categoryDao.findById(resultSet.getLong(COLUMN_CATEGORY_ID)),
+                        resultSet.getString(COLUMN_INGREDIENTS),
+                        resultSet.getInt(COLUMN_STORAGE_PERIOD)
+                );
+
+                goods.add(good);
+            }
+        } catch (SQLException throwable) {
+            logger.error(throwable.getMessage());
+        } finally {
+            releaseConnection(connection);
+            closeStatement(preparedStatement);
+        }
+        return goods;
+    }
+
+    @Override
+    public List<Good> findAllLike(String value) {
+        List<Good> goods = new ArrayList<>();
+        PreparedStatement preparedStatement = null;
+        try {
+            connection = connectionPool.getConnection();
+            preparedStatement = connection.prepareStatement(SQL_FIND_ALL_LIKE);
+            preparedStatement.setString(1, "%" + value + "%");
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                Good good = new Good(
+                        resultSet.getLong(COLUMN_ID),
+                        resultSet.getString(COLUMN_NAME),
+                        resultSet.getString(COLUMN_DESCRIPTION),
+                        resultSet.getString(COLUMN_PICTURE_URL),
+                        resultSet.getDouble(COLUMN_WEIGHT),
+                        resultSet.getInt(COLUMN_PRICE),
+                        categoryDao.findById(resultSet.getLong(COLUMN_CATEGORY_ID)),
+                        resultSet.getString(COLUMN_INGREDIENTS),
+                        resultSet.getInt(COLUMN_STORAGE_PERIOD)
+                );
+
+                goods.add(good);
+            }
+        } catch (SQLException throwable) {
+            logger.error(throwable.getMessage());
+        } finally {
+            releaseConnection(connection);
+            closeStatement(preparedStatement);
+        }
+        return goods;
+    }
+
+    public static GoodDaoImpl getInstance() {
         return INSTANCE;
     }
 }

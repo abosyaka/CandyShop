@@ -5,7 +5,6 @@ public class ServiceConstant {
     public static final String USERS = "users";
     public static final String ROLES = "roles";
     public static final String ROLE = "role";
-    public static final String LANGUAGE = "lang";
     public static final String CATEGORIES = "categories";
     public static final String CATEGORY = "category";
     public static final String STATUSES = "statuses";
@@ -14,7 +13,6 @@ public class ServiceConstant {
     public static final String GOOD = "good";
     public static final String ORDERS = "orders";
     public static final String ORDER = "order";
-    public static final String ORDER_DATE = "orderDate";
     public static final String ROLE_ADMIN = "ROLE_ADMIN";
     public static final String ROLE_USER = "ROLE_USER";
     public static final String ID = "id";
@@ -22,6 +20,8 @@ public class ServiceConstant {
     public static final String EMAIL = "email";
     public static final String PASSWORD = "password";
     public static final String EDIT = "edit";
+    public static final String DELETE = "delete";
+    public static final String ADD = "add";
     public static final String ORDER_DETAILS = "orderDetails";
     public static final String COUNT = "count";
     public static final String NEW_PASSWORD = "newPass";
@@ -37,4 +37,5 @@ public class ServiceConstant {
     public static final String CART = "cart";
     public static final String TOTAL_PRICE = "totalPrice";
     public static final String STATUS_WAITING = "WAITING";
+    public static final String SEARCH = "search";
 }

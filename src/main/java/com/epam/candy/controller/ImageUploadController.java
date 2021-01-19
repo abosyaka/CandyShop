@@ -23,11 +23,12 @@ import java.nio.file.StandardCopyOption;
 public class ImageUploadController extends HttpServlet {
     private final GoodDao goodDao = GoodDaoImpl.getInstance();
     private final Logger logger = LogManager.getLogger();
+    private final String FilePathParameter = "upload.location";
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Long id = Long.parseLong(request.getParameter(ServiceConstant.ID));
         Good good = goodDao.findById(id);
-        String path = getServletContext().getInitParameter("upload.location");
+        String path = getServletContext().getInitParameter(FilePathParameter);
 
         File fileUpload = new File(path);
 
@@ -51,7 +52,7 @@ public class ImageUploadController extends HttpServlet {
         String fileName = request.getRequestURI().substring(14);
 
 
-        String path = getServletContext().getInitParameter("upload.location");
+        String path = getServletContext().getInitParameter(FilePathParameter);
         File file = new File(path, fileName);
         response.setHeader("Content-Type", getServletContext().getMimeType(fileName));
         response.setHeader("Content-Length", String.valueOf(file.length()));

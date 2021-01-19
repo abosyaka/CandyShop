@@ -1,7 +1,10 @@
 package com.epam.candy.service;
 
+import com.epam.candy.dao.CategoryDao;
 import com.epam.candy.dao.GoodDao;
+import com.epam.candy.dao.impl.CategoryDaoImpl;
 import com.epam.candy.dao.impl.GoodDaoImpl;
+import com.epam.candy.entity.Category;
 import com.epam.candy.entity.Good;
 import com.epam.candy.entity.User;
 import com.epam.candy.service.constant.ServiceConstant;
@@ -18,6 +21,7 @@ import java.util.ArrayList;
 
 public class ShowGoodsService implements Service {
     private final GoodDao goodDao = GoodDaoImpl.getInstance();
+    private final CategoryDao categoryDao = CategoryDaoImpl.getInstance();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ParseException, SQLException {
@@ -25,7 +29,9 @@ public class ShowGoodsService implements Service {
         if (user != null) {
             if (user.getRole().getName().equals(ServiceConstant.ROLE_ADMIN)) {
                 ArrayList<Good> goods = (ArrayList<Good>) goodDao.findAll();
+                ArrayList<Category> categories = (ArrayList<Category>) categoryDao.findAll();
 
+                request.setAttribute(ServiceConstant.CATEGORIES, categories);
                 request.setAttribute(ServiceConstant.GOODS, goods);
 
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/admin_goods_list.jsp");

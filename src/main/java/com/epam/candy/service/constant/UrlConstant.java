@@ -35,4 +35,7 @@ public class UrlConstant {
     public static final String MAKE_PURCHASE = "/purchase";
     public static final String SHOW_USER_ORDERS = "/orders";
     public static final String SHOW_ORDER_DETAILS = "/order";
+    public static final String ADMIN_GOOD_ADD = "/admin/good/add";
+    public static final String ADMIN_CATEGORY_ADD = "/admin/category/add";
+    public static final String ADMIN_USER_ADD = "/admin/user/add";
 }

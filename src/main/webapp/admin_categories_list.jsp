@@ -20,7 +20,7 @@
                     <h5 class="display-5 font-weight-bold"><fmt:message key="button.category.all"/></h5>
                 </div>
                 <div class="col-md-2 ml-auto offset-3">
-                    <button class="btn btn-secondary offset-5" data-toggle="modal" data-target="#modalLanguage"
+                    <button class="btn btn-secondary offset-5" data-toggle="modal" data-target="#addCategoryModal"
                             data-command="add">
                         <fmt:message key="button.add"/>
                     </button>
@@ -30,6 +30,22 @@
             <p class="lead"></p>
             <hr class="my-4">
             <div class="row">
+                <c:if test="${param.add ne null}">
+                    <c:if test="${param.add.equals('success')}">
+                        <div class="alert alert-success"><fmt:message key="label.add.success" /></div>
+                    </c:if>
+                    <c:if test="${param.add.equals('fail')}">
+                        <div class="alert alert-danger"><fmt:message key="label.add.fail" /></div>
+                    </c:if>
+                </c:if>
+                <c:if test="${param.delete ne null}">
+                    <c:if test="${param.delete.equals('success')}">
+                        <div class="alert alert-success"><fmt:message key="label.delete.success" /></div>
+                    </c:if>
+                    <c:if test="${param.delete.equals('fail')}">
+                        <div class="alert alert-danger"><fmt:message key="label.delete.fail" /></div>
+                    </c:if>
+                </c:if>
                 <div class="col-12 table-responsive">
                     <table class="table">
                         <thead>
@@ -88,6 +104,35 @@
                     <button type="submit" class="btn btn-danger"><fmt:message key="button.delete"/></button>
                 </form>
             </div>
+        </div>
+    </div>
+</div>
+<!-- END OF MODAL -->
+
+<!-- ADD USER MODAL -->
+<div class="modal fade" id="addCategoryModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="/admin/category/add" method="post">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="name"><fmt:message key="label.name"/> </label>
+                        <input type="text" name="name" id="name" class="form-control" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><fmt:message
+                            key="button.close"/></button>
+                    <button type="submit" class="btn btn-info"><fmt:message key="button.add"/></button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

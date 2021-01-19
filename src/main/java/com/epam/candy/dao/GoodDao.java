@@ -1,6 +1,9 @@
 package com.epam.candy.dao;
 
+import com.epam.candy.entity.Category;
 import com.epam.candy.entity.Good;
+
+import java.util.List;
 
 public interface GoodDao extends BaseDao<Good> {
     String COLUMN_ID = "good_id";
@@ -12,4 +15,7 @@ public interface GoodDao extends BaseDao<Good> {
     String COLUMN_CATEGORY_ID = "category_id";
     String COLUMN_INGREDIENTS = "ingredients";
     String COLUMN_STORAGE_PERIOD = "storage_period";
+
+    List<Good> findAllByCategory(Category category);
+    List<Good> findAllLike(String value);
 }

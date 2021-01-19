@@ -37,7 +37,7 @@
             <textarea class="form-control" type="text" name="ingredients" id="ingredients">${good.ingredients}</textarea>
         </div>
         <div class="form-group">
-            <label for="category"><fmt:message key="button.category.all"/> </label>
+            <label for="category"><fmt:message key="button.category"/> </label>
             <select class="form-control" name="category" id="category">
                 <c:forEach var="category" items="${categories}">
                     <option value="${category.id}"

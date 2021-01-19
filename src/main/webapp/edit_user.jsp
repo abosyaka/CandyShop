@@ -18,7 +18,7 @@
             <div class="alert alert-danger"><fmt:message key="label.edit.fail" /></div>
         </c:if>
     </c:if>
-    <form action="/admin/user/edit" class="w-100" method="post">
+    <form action="/admin/user/edit" class="w-100" method="post" id="editUserForm">
         <div class="form-group">
             <label for="id">ID</label>
             <input class="form-control" type="text" readonly name="id" value="${user.id}" id="id">
@@ -36,12 +36,12 @@
             <input class="form-control" type="text" readonly name="password" value="${user.password}" id="password">
         </div>
         <div class="form-group">
-            <label for="password"><fmt:message key="label.password" /></label>
-            <input class="form-control" type="password" name="newPass" id="change_pass">
+            <label for="newPass"><fmt:message key="label.password" /></label>
+            <input class="form-control" type="password" name="newPass" id="newPass">
         </div>
         <div class="form-group">
-            <label for="password"><fmt:message key="label.password.confirm" /></label>
-            <input class="form-control" type="password" name="reNewPass" id="re_pass">
+            <label for="reNewPass"><fmt:message key="label.password.confirm" /></label>
+            <input class="form-control" type="password" name="reNewPass" id="reNewPass">
         </div>
         <div class="form-group">
             <label for="role_id"><fmt:message key="label.role"/> </label>
@@ -58,5 +58,19 @@
     </form>
 </div>
 <%@include file="layout/footer.jsp" %>
+
+<script>
+    $('#editUserForm').validate({
+        rules: {
+            newPass: {
+                minlength: 3
+            },
+            reNewPass: {
+                minlength: 3,
+                equalTo: "#newPass"
+            }
+        }
+    });
+</script>
 </body>
 </html>

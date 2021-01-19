@@ -23,8 +23,19 @@ public class HomeService implements Service {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ParseException, SQLException {
+        ArrayList<Good> goods;
+        String categoryIdParameter = request.getParameter(ServiceConstant.CATEGORY);
+        String searchParameter = request.getParameter(ServiceConstant.SEARCH);
+
+        if (categoryIdParameter != null) {
+            Category category = categoryDao.findById(Long.parseLong(categoryIdParameter));
+            goods = (ArrayList<Good>) goodDao.findAllByCategory(category);
+        } else if (searchParameter != null) {
+            goods = (ArrayList<Good>) goodDao.findAllLike(searchParameter);
+        } else {
+            goods = (ArrayList<Good>) goodDao.findAll();
+        }
         ArrayList<Category> categories = (ArrayList<Category>) categoryDao.findAll();
-        ArrayList<Good> goods = (ArrayList<Good>) goodDao.findAll();
 
         request.setAttribute(ServiceConstant.CATEGORIES, categories);
         request.setAttribute(ServiceConstant.GOODS, goods);

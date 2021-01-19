@@ -1,7 +1,10 @@
 package com.epam.candy.service;
 
+import com.epam.candy.dao.RoleDao;
 import com.epam.candy.dao.UserDao;
+import com.epam.candy.dao.impl.RoleDaoImpl;
 import com.epam.candy.dao.impl.UserDaoImpl;
+import com.epam.candy.entity.Role;
 import com.epam.candy.entity.User;
 import com.epam.candy.service.constant.ServiceConstant;
 import com.epam.candy.service.constant.UrlConstant;
@@ -17,6 +20,7 @@ import java.util.ArrayList;
 
 public class ShowUsersService implements Service {
     private final UserDao userDao = UserDaoImpl.getInstance();
+    private final RoleDao roleDao = RoleDaoImpl.getInstance();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ParseException, SQLException {
@@ -24,6 +28,9 @@ public class ShowUsersService implements Service {
         if (user != null) {
             if (user.getRole().getName().equals(ServiceConstant.ROLE_ADMIN)) {
                 ArrayList<User> users = (ArrayList<User>) userDao.findAll();
+                ArrayList<Role> roles = (ArrayList<Role>) roleDao.findAll();
+
+                request.setAttribute(ServiceConstant.ROLES, roles);
                 request.setAttribute(ServiceConstant.USERS, users);
 
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/admin_users_list.jsp");

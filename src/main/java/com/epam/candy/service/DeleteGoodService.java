@@ -19,8 +19,12 @@ public class DeleteGoodService implements Service {
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ParseException, SQLException {
         Long id = Long.parseLong(request.getParameter(ServiceConstant.ID));
 
-        goodDao.delete(id);
+        String deleteStatus = ServiceConstant.FAIL;
+        if (goodDao.delete(id)) {
+            deleteStatus = ServiceConstant.SUCCESS;
+        }
 
-        response.sendRedirect(UrlConstant.ADMIN_SHOW_GOODS);
+        String params = "?" + ServiceConstant.DELETE + "=" + deleteStatus;
+        response.sendRedirect(UrlConstant.ADMIN_SHOW_GOODS + params);
     }
 }

@@ -19,8 +19,12 @@ public class DeleteUserService implements Service {
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ParseException, SQLException {
         Long id = Long.parseLong(request.getParameter(ServiceConstant.ID));
 
-        userDao.delete(id);
+        String deleteStatus = ServiceConstant.FAIL;
+        if (userDao.delete(id)) {
+            deleteStatus = ServiceConstant.SUCCESS;
+        }
 
-        response.sendRedirect(UrlConstant.ADMIN_SHOW_USERS);
+        String params = "?" + ServiceConstant.DELETE + "=" + deleteStatus;
+        response.sendRedirect(UrlConstant.ADMIN_SHOW_USERS + params);
     }
 }

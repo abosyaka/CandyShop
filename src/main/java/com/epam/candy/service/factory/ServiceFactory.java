@@ -46,6 +46,9 @@ public class ServiceFactory {
         SERVICE_MAP.put(UrlConstant.MAKE_PURCHASE, new MakeOrderService());
         SERVICE_MAP.put(UrlConstant.SHOW_USER_ORDERS, new ShowUserOrdersService());
         SERVICE_MAP.put(UrlConstant.SHOW_ORDER_DETAILS, new ShowOrderDetailService());
+        SERVICE_MAP.put(UrlConstant.ADMIN_GOOD_ADD, new AddGoodService());
+        SERVICE_MAP.put(UrlConstant.ADMIN_CATEGORY_ADD, new AddCategoryService());
+        SERVICE_MAP.put(UrlConstant.ADMIN_USER_ADD, new AddUserService());
     }
 
     public Service getService(String request) {

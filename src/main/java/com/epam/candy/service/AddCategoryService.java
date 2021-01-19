@@ -13,19 +13,21 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
 
-public class DeleteCategoryService implements Service {
+public class AddCategoryService implements Service{
     private final CategoryDao categoryDao = CategoryDaoImpl.getInstance();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ParseException, SQLException {
-        Long id = Long.parseLong(request.getParameter(ServiceConstant.ID));
+        String name = request.getParameter(ServiceConstant.NAME);
 
-        String deleteStatus = ServiceConstant.FAIL;
-        if (categoryDao.delete(id)) {
-            deleteStatus = ServiceConstant.SUCCESS;
+        Category category = new Category(name);
+
+        String addStatus = ServiceConstant.FAIL;
+        if (categoryDao.create(category)) {
+            addStatus = ServiceConstant.SUCCESS;
         }
 
-        String params = "?" + ServiceConstant.DELETE + "=" + deleteStatus;
+        String params = "?" + ServiceConstant.ADD + "=" + addStatus;
         response.sendRedirect(UrlConstant.ADMIN_SHOW_CATEGORIES + params);
     }
 }
