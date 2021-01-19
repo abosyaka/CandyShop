@@ -1,15 +1,3 @@
--- CREATE DATABASE "CandyShop"
---     WITH
---     OWNER = postgres
---     ENCODING = 'UTF8'
---     LC_COLLATE = 'Russian_Russia.1251'
---     LC_CTYPE = 'Russian_Russia.1251'
---     TABLESPACE = pg_default
---     CONNECTION LIMIT = -1;
---
--- CREATE SCHEMA public
---     AUTHORIZATION postgres;
-
 CREATE TABLE IF NOT EXISTS Role(
   role_id   SERIAL PRIMARY KEY,
   role_name VARCHAR(55) NOT NULL
