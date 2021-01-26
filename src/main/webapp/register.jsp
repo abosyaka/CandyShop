@@ -8,7 +8,7 @@
 <body>
 <%@include file="layout/navbar.jsp" %>
     <div class="col-6 mx-auto my-5">
-        <form action="$user/register" method="post" id="registerForm">
+        <form action="user/register" method="post" id="registerForm">
             <div class="form-group">
                 <label for="name">
                     <fmt:message key="label.name"/>

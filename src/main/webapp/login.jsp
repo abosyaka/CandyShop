@@ -8,7 +8,7 @@
 
 </head>
 <body>
-<%@include file="layout/navbar.jsp"%>>
+<%@include file="layout/navbar.jsp"%>
 <div class="col-6 mx-auto my-5">
     <c:if test="${param.login ne null}">
         <div class="alert alert-danger"><fmt:message key="label.login.error" /></div>
