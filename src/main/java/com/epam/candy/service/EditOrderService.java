@@ -21,18 +21,18 @@ import java.text.ParseException;
 import java.util.ArrayList;
 
 public class EditOrderService implements Service {
-    private final OrderDao orderDao = OrderDaoImpl.getInstance();
-    private final StatusDao statusDao = StatusDaoImpl.getInstance();
-    private final OrderDetailDao orderDetailDao = OrderDetailDaoImpl.getInstance();
+    private final OrderDao ORDER_DAO = OrderDaoImpl.getInstance();
+    private final StatusDao STATUS_DAO = StatusDaoImpl.getInstance();
+    private final OrderDetailDao ORDER_DETAIL_DAO = OrderDetailDaoImpl.getInstance();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ParseException, SQLException {
         Long id = Long.parseLong(request.getParameter(ServiceConstant.ID));
-        ArrayList<OrderDetail> details = (ArrayList<OrderDetail>) orderDetailDao.findAllByOrderId(id);
+        ArrayList<OrderDetail> details = (ArrayList<OrderDetail>) ORDER_DETAIL_DAO.findAllByOrderId(id);
         Long statusId = Long.parseLong(request.getParameter(ServiceConstant.STATUS));
 
-        Status status = statusDao.findById(statusId);
-        Order order = orderDao.findById(id);
+        Status status = STATUS_DAO.findById(statusId);
+        Order order = ORDER_DAO.findById(id);
 
         boolean isDetailsUpdated = true;
         for (int i = 0; i < details.size(); i++) {
@@ -40,10 +40,10 @@ public class EditOrderService implements Service {
             Integer count = Integer.parseInt(request.getParameter(countParam));
             OrderDetail detail = details.get(i);
             if (count <= 0) {
-                orderDetailDao.delete(detail.getId());
+                ORDER_DETAIL_DAO.delete(detail.getId());
             } else {
                 detail.setCount(count);
-                if (orderDetailDao.update(detail) == null) {
+                if (ORDER_DETAIL_DAO.update(detail) == null) {
                     isDetailsUpdated = false;
                     break;
                 }
@@ -53,7 +53,7 @@ public class EditOrderService implements Service {
         order.setStatus(status);
 
         String editStatus = ServiceConstant.FAIL;
-        if (orderDao.update(order) != null && isDetailsUpdated) {
+        if (ORDER_DAO.update(order) != null && isDetailsUpdated) {
             editStatus = ServiceConstant.SUCCESS;
         }
 

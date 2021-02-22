@@ -14,13 +14,13 @@ import java.sql.SQLException;
 import java.text.ParseException;
 
 public class ShowGoodDetailService implements Service {
-    private final GoodDao goodDao = GoodDaoImpl.getInstance();
+    private final GoodDao GOOD_DAO = GoodDaoImpl.getInstance();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ParseException, SQLException {
         Long id = Long.parseLong(request.getParameter(ServiceConstant.ID));
 
-        Good good = goodDao.findById(id);
+        Good good = GOOD_DAO.findById(id);
 
         request.setAttribute(ServiceConstant.GOOD, good);
 

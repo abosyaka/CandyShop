@@ -3,12 +3,12 @@ package com.epam.candy.connectionpool;
 import java.util.ResourceBundle;
 
 public class DBResourceManager {
-    private final static DBResourceManager instance = new DBResourceManager();
+    private final static DBResourceManager INSTANCE = new DBResourceManager();
 
     private final ResourceBundle bundle = ResourceBundle.getBundle("db");
 
     public static DBResourceManager getInstance(){
-        return instance;
+        return INSTANCE;
     }
 
     public String getValue(String key){

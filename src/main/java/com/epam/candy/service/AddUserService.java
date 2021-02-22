@@ -18,8 +18,8 @@ import java.sql.SQLException;
 import java.text.ParseException;
 
 public class AddUserService implements Service {
-    private final RoleDao roleDao = RoleDaoImpl.getInstance();
-    private final UserDao userDao = UserDaoImpl.getInstance();
+    private final RoleDao ROLE_DAO = RoleDaoImpl.getInstance();
+    private final UserDao USER_DAO = UserDaoImpl.getInstance();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ParseException, SQLException {
@@ -29,7 +29,7 @@ public class AddUserService implements Service {
         String rePass = request.getParameter(ServiceConstant.NEW_PASSWORD_CONFIRM);
         Long roleId = Long.parseLong(request.getParameter(ServiceConstant.ROLE));
 
-        Role role = roleDao.findById(roleId);
+        Role role = ROLE_DAO.findById(roleId);
 
         if(password.equals(rePass)) {
             User user = new User();
@@ -41,7 +41,7 @@ public class AddUserService implements Service {
             user.setRole(role);
 
             String addStatus = ServiceConstant.FAIL;
-            if (userDao.create(user)) {
+            if (USER_DAO.create(user)) {
                 addStatus = ServiceConstant.SUCCESS;
             }
 

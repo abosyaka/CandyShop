@@ -2,7 +2,6 @@ package com.epam.candy.service;
 
 import com.epam.candy.dao.CategoryDao;
 import com.epam.candy.dao.impl.CategoryDaoImpl;
-import com.epam.candy.entity.Category;
 import com.epam.candy.service.constant.ServiceConstant;
 import com.epam.candy.service.constant.UrlConstant;
 
@@ -14,14 +13,14 @@ import java.sql.SQLException;
 import java.text.ParseException;
 
 public class DeleteCategoryService implements Service {
-    private final CategoryDao categoryDao = CategoryDaoImpl.getInstance();
+    private final CategoryDao CATEGORY_DAO = CategoryDaoImpl.getInstance();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ParseException, SQLException {
         Long id = Long.parseLong(request.getParameter(ServiceConstant.ID));
 
         String deleteStatus = ServiceConstant.FAIL;
-        if (categoryDao.delete(id)) {
+        if (CATEGORY_DAO.delete(id)) {
             deleteStatus = ServiceConstant.SUCCESS;
         }
 

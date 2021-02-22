@@ -16,7 +16,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 
 public class ShowCategoryEditService implements Service {
-    private final CategoryDao categoryDao = CategoryDaoImpl.getInstance();
+    private final CategoryDao CATEGORY_DAO = CategoryDaoImpl.getInstance();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ParseException, SQLException {
@@ -27,7 +27,7 @@ public class ShowCategoryEditService implements Service {
             response.sendRedirect(UrlConstant.ERROR_403);
         } else {
             Long id = Long.parseLong(request.getParameter(ServiceConstant.ID));
-            Category category = categoryDao.findById(id);
+            Category category = CATEGORY_DAO.findById(id);
 
             request.setAttribute(ServiceConstant.CATEGORY, category);
 

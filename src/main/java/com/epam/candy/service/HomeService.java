@@ -18,8 +18,8 @@ import java.text.ParseException;
 import java.util.ArrayList;
 
 public class HomeService implements Service {
-    private final CategoryDao categoryDao = CategoryDaoImpl.getInstance();
-    private final GoodDao goodDao = GoodDaoImpl.getInstance();
+    private final CategoryDao CATEGORY_DAO = CategoryDaoImpl.getInstance();
+    private final GoodDao GOOD_DAO = GoodDaoImpl.getInstance();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ParseException, SQLException {
@@ -28,14 +28,14 @@ public class HomeService implements Service {
         String searchParameter = request.getParameter(ServiceConstant.SEARCH);
 
         if (categoryIdParameter != null) {
-            Category category = categoryDao.findById(Long.parseLong(categoryIdParameter));
-            goods = (ArrayList<Good>) goodDao.findAllByCategory(category);
+            Category category = CATEGORY_DAO.findById(Long.parseLong(categoryIdParameter));
+            goods = (ArrayList<Good>) GOOD_DAO.findAllByCategory(category);
         } else if (searchParameter != null) {
-            goods = (ArrayList<Good>) goodDao.findAllLike(searchParameter);
+            goods = (ArrayList<Good>) GOOD_DAO.findAllLike(searchParameter);
         } else {
-            goods = (ArrayList<Good>) goodDao.findAll();
+            goods = (ArrayList<Good>) GOOD_DAO.findAll();
         }
-        ArrayList<Category> categories = (ArrayList<Category>) categoryDao.findAll();
+        ArrayList<Category> categories = (ArrayList<Category>) CATEGORY_DAO.findAll();
 
         request.setAttribute(ServiceConstant.CATEGORIES, categories);
         request.setAttribute(ServiceConstant.GOODS, goods);

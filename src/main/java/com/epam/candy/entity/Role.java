@@ -5,7 +5,6 @@ import java.util.Objects;
 public class Role extends Entity {
     public static final String ROLE_USER = "ROLE_USER";
     public static final String ROLE_ADMIN = "ROLE_ADMIN";
-    private Long id;
     private String name;
 
     public Role(Long id, String name) {

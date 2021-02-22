@@ -3,7 +3,6 @@ package com.epam.candy.entity;
 import java.util.Objects;
 
 public class Status extends Entity{
-    private Long id;
     private String name;
 
     public Status(Long id, String name) {

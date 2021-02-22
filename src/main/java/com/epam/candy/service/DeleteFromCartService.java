@@ -16,7 +16,7 @@ import java.text.ParseException;
 import java.util.Map;
 
 public class DeleteFromCartService implements Service {
-    private final GoodDao goodDao = GoodDaoImpl.getInstance();
+    private final GoodDao GOOD_DAO = GoodDaoImpl.getInstance();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ParseException, SQLException {
@@ -25,7 +25,7 @@ public class DeleteFromCartService implements Service {
         HttpSession session = request.getSession();
 
         Map<Good, Integer> cartMap = (Map<Good, Integer>) session.getAttribute(ServiceConstant.CART);
-        Good good = goodDao.findById(id);
+        Good good = GOOD_DAO.findById(id);
 
         if (cartMap != null) {
             if (isOne) {

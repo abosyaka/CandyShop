@@ -20,16 +20,16 @@ import java.text.ParseException;
 import java.util.ArrayList;
 
 public class ShowGoodsService implements Service {
-    private final GoodDao goodDao = GoodDaoImpl.getInstance();
-    private final CategoryDao categoryDao = CategoryDaoImpl.getInstance();
+    private final GoodDao GOOD_DAO = GoodDaoImpl.getInstance();
+    private final CategoryDao CATEGORY_DAO = CategoryDaoImpl.getInstance();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ParseException, SQLException {
         User user = (User) request.getSession().getAttribute(ServiceConstant.USER);
         if (user != null) {
             if (user.getRole().getName().equals(ServiceConstant.ROLE_ADMIN)) {
-                ArrayList<Good> goods = (ArrayList<Good>) goodDao.findAll();
-                ArrayList<Category> categories = (ArrayList<Category>) categoryDao.findAll();
+                ArrayList<Good> goods = (ArrayList<Good>) GOOD_DAO.findAll();
+                ArrayList<Category> categories = (ArrayList<Category>) CATEGORY_DAO.findAll();
 
                 request.setAttribute(ServiceConstant.CATEGORIES, categories);
                 request.setAttribute(ServiceConstant.GOODS, goods);

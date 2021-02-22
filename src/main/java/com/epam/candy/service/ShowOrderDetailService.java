@@ -18,7 +18,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 
 public class ShowOrderDetailService implements Service {
-    private final OrderDetailDao orderDetailDao = OrderDetailDaoImpl.getInstance();
+    private final OrderDetailDao ORDER_DETAIL_DAO = OrderDetailDaoImpl.getInstance();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ParseException, SQLException {
@@ -29,7 +29,7 @@ public class ShowOrderDetailService implements Service {
             Long id = Long.parseLong(request.getParameter(ServiceConstant.ID));
             Integer totalPrice = 0;
 
-            ArrayList<OrderDetail> orderDetails = (ArrayList<OrderDetail>) orderDetailDao.findAllByOrderId(id);
+            ArrayList<OrderDetail> orderDetails = (ArrayList<OrderDetail>) ORDER_DETAIL_DAO.findAllByOrderId(id);
 
             for(OrderDetail detail : orderDetails){
                 totalPrice += detail.getCount() * detail.getGood().getPrice();

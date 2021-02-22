@@ -15,7 +15,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 
 public class RegisterService implements Service {
-    private final UserDao userDao = UserDaoImpl.getInstance();
+    private final UserDao USER_DAO = UserDaoImpl.getInstance();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ParseException, SQLException {
@@ -35,7 +35,7 @@ public class RegisterService implements Service {
         }
 
 
-        if (userDao.create(user)) {
+        if (USER_DAO.create(user)) {
             response.sendRedirect(UrlConstant.HOME);
         }
     }

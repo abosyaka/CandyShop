@@ -16,7 +16,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 
 public class LoginService implements Service {
-    private final UserDao userDao = UserDaoImpl.getInstance();
+    private final UserDao USER_DAO = UserDaoImpl.getInstance();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ParseException, SQLException {
@@ -24,7 +24,7 @@ public class LoginService implements Service {
         String password = request.getParameter(ServiceConstant.PASSWORD);
         HttpSession session = request.getSession();
 
-        User user = userDao.findByEmail(email);
+        User user = USER_DAO.findByEmail(email);
 
         String redirectTo = UrlConstant.SHOW_LOGIN + "?login=error";
 

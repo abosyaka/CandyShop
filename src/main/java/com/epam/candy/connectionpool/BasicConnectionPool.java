@@ -11,39 +11,41 @@ import java.util.concurrent.BlockingQueue;
 
 public class BasicConnectionPool implements ConnectionPool {
     private static final BasicConnectionPool BASIC_CONNECTION_POOL = new BasicConnectionPool();
-    static final Logger logger = LogManager.getLogger();
+    static final Logger LOGGER = LogManager.getLogger();
     private BlockingQueue<Connection> givenAwayConQueue;
     private BlockingQueue<Connection> connectionQueue;
 
-    private final String driverName;
-    private final String url;
-    private final String password;
-    private final String user;
-    private int poolSize;
+    private final String DRIVER_NAME;
+    private final String URL;
+    private final String PASSWORD;
+    private final String USER;
+    private final int POOL_SIZE;
 
     private BasicConnectionPool(){
+        int poolSize;
         DBResourceManager dbResourceManager = DBResourceManager.getInstance();
-        this.driverName = dbResourceManager.getValue(DBParameter.DB_DRIVER);
-        this.url = dbResourceManager.getValue(DBParameter.DB_URL);
-        this.password = dbResourceManager.getValue(DBParameter.DB_PASSWORD);
-        this.user = dbResourceManager.getValue(DBParameter.DB_USER);
+        this.DRIVER_NAME = dbResourceManager.getValue(DBParameter.DB_DRIVER);
+        this.URL = dbResourceManager.getValue(DBParameter.DB_URL);
+        this.PASSWORD = dbResourceManager.getValue(DBParameter.DB_PASSWORD);
+        this.USER = dbResourceManager.getValue(DBParameter.DB_USER);
         try {
             poolSize = Integer.parseInt(dbResourceManager.getValue(DBParameter.DB_POOLSIZE));
         } catch (NumberFormatException e){
             poolSize = 10;
         }
 
+        POOL_SIZE = poolSize;
         initPoolData();
     }
 
     public void initPoolData(){
         try {
-            Class.forName(driverName);
-            givenAwayConQueue = new ArrayBlockingQueue<>(poolSize);
-            connectionQueue = new ArrayBlockingQueue<>(poolSize);
+            Class.forName(DRIVER_NAME);
+            givenAwayConQueue = new ArrayBlockingQueue<>(POOL_SIZE);
+            connectionQueue = new ArrayBlockingQueue<>(POOL_SIZE);
 
-            for(int i = 0; i < poolSize; i++){
-                Connection connection = DriverManager.getConnection(url,user,password);
+            for(int i = 0; i < POOL_SIZE; i++){
+                Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
                 connectionQueue.offer(connection);
             }
         } catch (ClassNotFoundException | SQLException e) {
@@ -59,7 +61,7 @@ public class BasicConnectionPool implements ConnectionPool {
             connection = connectionQueue.take();
             givenAwayConQueue.add(connection);
         } catch (InterruptedException e) {
-            logger.error(e.getMessage());
+            LOGGER.error(e.getMessage());
         }
 
         return connection;
@@ -75,7 +77,7 @@ public class BasicConnectionPool implements ConnectionPool {
 
     @Override
     public void destroyPool(){
-        for(int i = 0; i < poolSize; i++){
+        for(int i = 0; i < POOL_SIZE; i++){
             try {
                 connectionQueue.take().close();
             } catch (SQLException | InterruptedException throwable) {
@@ -86,17 +88,17 @@ public class BasicConnectionPool implements ConnectionPool {
 
     @Override
     public String getUrl() {
-        return this.url;
+        return this.URL;
     }
 
     @Override
     public String getPassword() {
-        return this.password;
+        return this.PASSWORD;
     }
 
     @Override
     public String getUser() {
-        return this.user;
+        return this.USER;
     }
 
     public static BasicConnectionPool getInstance(){

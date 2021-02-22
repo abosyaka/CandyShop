@@ -17,7 +17,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 
 public class ShowUserOrdersService implements Service {
-    private final OrderDao orderDao = OrderDaoImpl.getInstance();
+    private final OrderDao ORDER_DAO = OrderDaoImpl.getInstance();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ParseException, SQLException {
@@ -25,7 +25,7 @@ public class ShowUserOrdersService implements Service {
         if (currentUser == null) {
             response.sendRedirect(UrlConstant.SHOW_LOGIN);
         } else {
-            ArrayList<Order> orders = (ArrayList<Order>) orderDao.findAllByUser(currentUser);
+            ArrayList<Order> orders = (ArrayList<Order>) ORDER_DAO.findAllByUser(currentUser);
 
             request.setAttribute(ServiceConstant.ORDERS, orders);
         }

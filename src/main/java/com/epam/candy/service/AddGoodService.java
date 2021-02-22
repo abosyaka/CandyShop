@@ -9,7 +9,6 @@ import com.epam.candy.entity.Good;
 import com.epam.candy.service.constant.ServiceConstant;
 import com.epam.candy.service.constant.UrlConstant;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,8 +17,8 @@ import java.sql.SQLException;
 import java.text.ParseException;
 
 public class AddGoodService implements Service {
-    private final GoodDao goodDao = GoodDaoImpl.getInstance();
-    private final CategoryDao categoryDao = CategoryDaoImpl.getInstance();
+    private final GoodDao GOOD_DAO = GoodDaoImpl.getInstance();
+    private final CategoryDao CATEGORY_DAO = CategoryDaoImpl.getInstance();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ParseException, SQLException {
@@ -31,7 +30,7 @@ public class AddGoodService implements Service {
         Double weight = Double.parseDouble(request.getParameter(ServiceConstant.WEIGHT));
         Integer storagePeriod = Integer.parseInt(request.getParameter(ServiceConstant.STORAGE_PERIOD));
 
-        Category category = categoryDao.findById(categoryId);
+        Category category = CATEGORY_DAO.findById(categoryId);
         Good good = new Good();
 
         good.setName(name);
@@ -43,7 +42,7 @@ public class AddGoodService implements Service {
         good.setIngredients(ingredients);
 
         String addStatus = ServiceConstant.FAIL;
-        if (goodDao.create(good)) {
+        if (GOOD_DAO.create(good)) {
             addStatus = ServiceConstant.SUCCESS;
         }
 

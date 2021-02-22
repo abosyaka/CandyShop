@@ -3,7 +3,6 @@ package com.epam.candy.entity;
 import java.util.Objects;
 
 public class Category extends Entity{
-    private Long id;
     private String name;
 
     public Category(Long id, String name) {

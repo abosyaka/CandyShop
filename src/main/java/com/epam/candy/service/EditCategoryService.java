@@ -14,18 +14,18 @@ import java.sql.SQLException;
 import java.text.ParseException;
 
 public class EditCategoryService implements Service {
-    private final CategoryDao categoryDao = CategoryDaoImpl.getInstance();
+    private final CategoryDao CATEGORY_DAO = CategoryDaoImpl.getInstance();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ParseException, SQLException {
         Long id = Long.parseLong(request.getParameter(ServiceConstant.ID));
         String name = request.getParameter(ServiceConstant.NAME);
 
-        Category category = categoryDao.findById(id);
+        Category category = CATEGORY_DAO.findById(id);
         category.setName(name);
 
         String editStatus = ServiceConstant.FAIL;
-        if (categoryDao.update(category) != null) {
+        if (CATEGORY_DAO.update(category) != null) {
             editStatus = ServiceConstant.SUCCESS;
         }
 

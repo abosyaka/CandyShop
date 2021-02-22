@@ -18,8 +18,8 @@ import java.sql.SQLException;
 import java.text.ParseException;
 
 public class EditUserService implements Service {
-    private final UserDao userDao = UserDaoImpl.getInstance();
-    private final RoleDao roleDao = RoleDaoImpl.getInstance();
+    private final UserDao USER_DAO = UserDaoImpl.getInstance();
+    private final RoleDao ROLE_DAO = RoleDaoImpl.getInstance();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ParseException, SQLException {
@@ -30,8 +30,8 @@ public class EditUserService implements Service {
         String reNewPass = request.getParameter(ServiceConstant.NEW_PASSWORD_CONFIRM);
         Long roleId = Long.parseLong(request.getParameter(ServiceConstant.ROLE));
 
-        User user = userDao.findByEmail(email);
-        Role role = roleDao.findById(roleId);
+        User user = USER_DAO.findByEmail(email);
+        Role role = ROLE_DAO.findById(roleId);
 
         user.setName(name);
         user.setRole(role);
@@ -44,7 +44,7 @@ public class EditUserService implements Service {
         }
 
         String editStatus = ServiceConstant.FAIL;
-        if (userDao.update(user) != null) {
+        if (USER_DAO.update(user) != null) {
             editStatus = ServiceConstant.SUCCESS;
         }
 

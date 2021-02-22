@@ -20,9 +20,9 @@ import java.text.ParseException;
 import java.util.Map;
 
 public class MakeOrderService implements Service{
-    private final OrderDao orderDao = OrderDaoImpl.getInstance();
-    private final OrderDetailDao orderDetailDao = OrderDetailDaoImpl.getInstance();
-    private final StatusDao statusDao = StatusDaoImpl.getInstance();
+    private final OrderDao ORDER_DAO = OrderDaoImpl.getInstance();
+    private final OrderDetailDao ORDER_DETAIL_DAO = OrderDetailDaoImpl.getInstance();
+    private final StatusDao STATUS_DAO = StatusDaoImpl.getInstance();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ParseException, SQLException {
@@ -32,14 +32,14 @@ public class MakeOrderService implements Service{
             response.sendRedirect(UrlConstant.SHOW_LOGIN);
         } else {
             Map<Good, Integer> cartMap = (Map<Good, Integer>) session.getAttribute(ServiceConstant.CART);
-            Status status = statusDao.findByName(ServiceConstant.STATUS_WAITING);
+            Status status = STATUS_DAO.findByName(ServiceConstant.STATUS_WAITING);
 
             Order order = new Order(
                     currentUser,
                     status
             );
 
-            orderDao.create(order);
+            ORDER_DAO.create(order);
 
 
 
@@ -50,7 +50,7 @@ public class MakeOrderService implements Service{
                         cartMap.get(good)
                 );
 
-                orderDetailDao.create(orderDetail);
+                ORDER_DETAIL_DAO.create(orderDetail);
             }
             session.removeAttribute(ServiceConstant.CART);
             response.sendRedirect(UrlConstant.SHOW_CART);

@@ -17,8 +17,8 @@ import java.sql.SQLException;
 import java.text.ParseException;
 
 public class EditGoodService implements Service {
-    CategoryDao categoryDao = CategoryDaoImpl.getInstance();
-    GoodDao goodDao = GoodDaoImpl.getInstance();
+    private final CategoryDao CATEGORY_DAO = CategoryDaoImpl.getInstance();
+    private final GoodDao GOOD_DAO = GoodDaoImpl.getInstance();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ParseException, SQLException {
@@ -31,8 +31,8 @@ public class EditGoodService implements Service {
         Double weight = Double.parseDouble(request.getParameter(ServiceConstant.WEIGHT));
         Integer storagePeriod = Integer.parseInt(request.getParameter(ServiceConstant.STORAGE_PERIOD));
 
-        Category category = categoryDao.findById(categoryId);
-        Good good = goodDao.findById(id);
+        Category category = CATEGORY_DAO.findById(categoryId);
+        Good good = GOOD_DAO.findById(id);
 
         good.setCategory(category);
         good.setName(name);
@@ -43,7 +43,7 @@ public class EditGoodService implements Service {
         good.setStoragePeriod(storagePeriod);
 
         String editStatus = ServiceConstant.FAIL;
-        if (goodDao.update(good) != null) {
+        if (GOOD_DAO.update(good) != null) {
             editStatus = ServiceConstant.SUCCESS;
         }
 

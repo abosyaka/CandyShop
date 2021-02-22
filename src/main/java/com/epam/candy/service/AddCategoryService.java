@@ -14,7 +14,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 
 public class AddCategoryService implements Service{
-    private final CategoryDao categoryDao = CategoryDaoImpl.getInstance();
+    private final CategoryDao CATEGORY_DAO = CategoryDaoImpl.getInstance();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ParseException, SQLException {
@@ -23,7 +23,7 @@ public class AddCategoryService implements Service{
         Category category = new Category(name);
 
         String addStatus = ServiceConstant.FAIL;
-        if (categoryDao.create(category)) {
+        if (CATEGORY_DAO.create(category)) {
             addStatus = ServiceConstant.SUCCESS;
         }
 

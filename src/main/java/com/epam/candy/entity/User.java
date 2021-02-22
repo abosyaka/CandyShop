@@ -1,7 +1,6 @@
 package com.epam.candy.entity;
 
 public class User extends Entity{
-    private Long id;
     private String email;
     private String password;
     private String name;

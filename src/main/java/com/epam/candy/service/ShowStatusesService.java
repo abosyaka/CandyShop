@@ -17,14 +17,14 @@ import java.text.ParseException;
 import java.util.ArrayList;
 
 public class ShowStatusesService implements Service {
-    private final StatusDao statusDao = StatusDaoImpl.getInstance();
+    private final StatusDao STATUS_DAO = StatusDaoImpl.getInstance();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ParseException, SQLException {
         User user = (User) request.getSession().getAttribute(ServiceConstant.USER);
         if (user != null) {
             if (user.getRole().getName().equals(ServiceConstant.ROLE_ADMIN)) {
-                ArrayList<Status> statuses = (ArrayList<Status>) statusDao.findAll();
+                ArrayList<Status> statuses = (ArrayList<Status>) STATUS_DAO.findAll();
                 request.setAttribute(ServiceConstant.STATUSES, statuses);
 
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/admin_statuses_list.jsp");

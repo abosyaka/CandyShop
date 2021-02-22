@@ -19,16 +19,16 @@ import java.text.ParseException;
 import java.util.ArrayList;
 
 public class ShowUsersService implements Service {
-    private final UserDao userDao = UserDaoImpl.getInstance();
-    private final RoleDao roleDao = RoleDaoImpl.getInstance();
+    private final UserDao USER_DAO = UserDaoImpl.getInstance();
+    private final RoleDao ROLE_DAO = RoleDaoImpl.getInstance();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ParseException, SQLException {
         User user = (User) request.getSession().getAttribute(ServiceConstant.USER);
         if (user != null) {
             if (user.getRole().getName().equals(ServiceConstant.ROLE_ADMIN)) {
-                ArrayList<User> users = (ArrayList<User>) userDao.findAll();
-                ArrayList<Role> roles = (ArrayList<Role>) roleDao.findAll();
+                ArrayList<User> users = (ArrayList<User>) USER_DAO.findAll();
+                ArrayList<Role> roles = (ArrayList<Role>) ROLE_DAO.findAll();
 
                 request.setAttribute(ServiceConstant.ROLES, roles);
                 request.setAttribute(ServiceConstant.USERS, users);

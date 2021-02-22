@@ -20,8 +20,8 @@ import java.text.ParseException;
 import java.util.ArrayList;
 
 public class ShowGoodEditService implements Service {
-    private final GoodDao goodDao = GoodDaoImpl.getInstance();
-    private final CategoryDao categoryDao = CategoryDaoImpl.getInstance();
+    private final GoodDao GOOD_DAO = GoodDaoImpl.getInstance();
+    private final CategoryDao CATEGORY_DAO = CategoryDaoImpl.getInstance();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ParseException, SQLException {
@@ -32,8 +32,8 @@ public class ShowGoodEditService implements Service {
             response.sendRedirect(UrlConstant.ERROR_403);
         } else {
             Long id = Long.parseLong(request.getParameter(ServiceConstant.ID));
-            Good good = goodDao.findById(id);
-            ArrayList<Category> categories = (ArrayList<Category>) categoryDao.findAll();
+            Good good = GOOD_DAO.findById(id);
+            ArrayList<Category> categories = (ArrayList<Category>) CATEGORY_DAO.findAll();
 
             request.setAttribute(ServiceConstant.GOOD, good);
             request.setAttribute(ServiceConstant.CATEGORIES, categories);

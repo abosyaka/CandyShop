@@ -19,8 +19,8 @@ import java.text.ParseException;
 import java.util.ArrayList;
 
 public class ShowUserEditService implements Service {
-    private final UserDao userDao = UserDaoImpl.getInstance();
-    private final RoleDao roleDao = RoleDaoImpl.getInstance();
+    private final UserDao USER_DAO = UserDaoImpl.getInstance();
+    private final RoleDao ROLE_DAO = RoleDaoImpl.getInstance();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ParseException, SQLException {
@@ -31,8 +31,8 @@ public class ShowUserEditService implements Service {
             response.sendRedirect(UrlConstant.ERROR_403);
         } else {
             Long id = Long.parseLong(request.getParameter(ServiceConstant.ID));
-            User user = userDao.findById(id);
-            ArrayList<Role> roles = (ArrayList<Role>) roleDao.findAll();
+            User user = USER_DAO.findById(id);
+            ArrayList<Role> roles = (ArrayList<Role>) ROLE_DAO.findAll();
 
             request.setAttribute(ServiceConstant.ROLES, roles);
             request.setAttribute(ServiceConstant.USER, user);

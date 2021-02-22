@@ -3,7 +3,6 @@ package com.epam.candy.entity;
 import java.util.Objects;
 
 public class OrderDetail extends Entity{
-    private Long id;
     private Order order;
     private Good good;
     private Integer count;

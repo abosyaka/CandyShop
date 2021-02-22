@@ -3,7 +3,6 @@ package com.epam.candy.entity;
 import java.util.Objects;
 
 public class Good extends Entity{
-    private Long id;
     private String name;
     private String description;
     private String pictureUrl;

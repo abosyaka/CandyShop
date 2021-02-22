@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class AddToCartService implements Service {
-    private final GoodDao goodDao = GoodDaoImpl.getInstance();
+    private final GoodDao GOOD_DAO = GoodDaoImpl.getInstance();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ParseException, SQLException {
@@ -25,7 +25,7 @@ public class AddToCartService implements Service {
         Map<Good, Integer> cartMap = (Map<Good, Integer>) session.getAttribute(ServiceConstant.CART);
 
         Long id = Long.parseLong(request.getParameter(ServiceConstant.ID));
-        Good good = goodDao.findById(id);
+        Good good = GOOD_DAO.findById(id);
 
         if (cartMap == null) {
             cartMap = new HashMap<>();

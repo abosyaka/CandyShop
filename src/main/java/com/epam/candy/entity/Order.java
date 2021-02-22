@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class Order extends Entity{
-    private Long id;
     private User user;
     private Status status;
     private LocalDate orderDate;

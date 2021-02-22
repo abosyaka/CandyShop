@@ -13,14 +13,14 @@ import java.sql.SQLException;
 import java.text.ParseException;
 
 public class DeleteUserService implements Service {
-    private final UserDao userDao = UserDaoImpl.getInstance();
+    private final UserDao USER_DAO = UserDaoImpl.getInstance();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ParseException, SQLException {
         Long id = Long.parseLong(request.getParameter(ServiceConstant.ID));
 
         String deleteStatus = ServiceConstant.FAIL;
-        if (userDao.delete(id)) {
+        if (USER_DAO.delete(id)) {
             deleteStatus = ServiceConstant.SUCCESS;
         }
 
